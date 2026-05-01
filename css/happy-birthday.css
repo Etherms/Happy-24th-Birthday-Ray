@@ -1,0 +1,129 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap');
+
+.birthday-page {
+  min-height: 100vh;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at top, rgba(179, 0, 45, 0.16), transparent 38%),
+    linear-gradient(135deg, #ffffff, #ffe5e5);
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+}
+
+.birthday-page__content {
+  width: 100%;
+  max-width: 680px;
+  animation: birthdayFadeUp 900ms ease forwards;
+}
+
+.birthday-page__date {
+  display: inline-block;
+  margin: 0 0 24px;
+  padding: 10px 22px;
+  border: 1px solid #b3002d;
+  border-radius: 999px;
+  color: #b3002d;
+  font-size: clamp(14px, 3vw, 18px);
+  font-weight: 600;
+  letter-spacing: 2px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.birthday-page__title {
+  margin: 0;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(46px, 11vw, 92px);
+  line-height: 1.05;
+  color: #b3002d;
+  animation: softPulse 2.4s ease-in-out infinite;
+}
+
+.birthday-page__message {
+  max-width: 520px;
+  margin: 28px auto 0;
+  color: #5a0a1a;
+  font-size: clamp(18px, 4.5vw, 25px);
+  line-height: 1.6;
+}
+
+.birthday-page__heart {
+  display: inline-block;
+  color: #e6003c;
+  animation: heartBeat 1.2s ease-in-out infinite;
+}
+
+.birthday-page__button {
+  margin-top: 38px;
+  padding: 14px 34px;
+  border: 0;
+  border-radius: 999px;
+  background: #b3002d;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 14px 30px rgba(179, 0, 45, 0.25);
+  transition: transform 250ms ease, box-shadow 250ms ease;
+}
+
+.birthday-page__button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 38px rgba(179, 0, 45, 0.35);
+}
+
+@keyframes birthdayFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes softPulse {
+  0%, 100% {
+    transform: scale(1);
+    text-shadow: 0 0 0 rgba(179, 0, 45, 0);
+  }
+  50% {
+    transform: scale(1.025);
+    text-shadow: 0 12px 30px rgba(179, 0, 45, 0.22);
+  }
+}
+
+@keyframes heartBeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.25);
+  }
+  45% {
+    transform: scale(1);
+  }
+  65% {
+    transform: scale(1.18);
+  }
+}
+
+@media (max-width: 480px) {
+  .birthday-page {
+    padding: 22px;
+  }
+
+  .birthday-page__message {
+    margin-top: 24px;
+  }
+
+  .birthday-page__button {
+    width: 100%;
+    max-width: 260px;
+  }
+}

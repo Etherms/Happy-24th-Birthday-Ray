@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap');
+
+.gift-page {
+  min-height: 100vh;
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at top, rgba(179, 0, 45, 0.14), transparent 38%),
+    linear-gradient(135deg, #ffffff, #ffe5e5);
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.gift-page__content {
+  width: 100%;
+  max-width: 760px;
+  animation: giftFadeUp 850ms ease forwards;
+}
+
+.gift-page__title {
+  margin: 0 0 42px;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(42px, 10vw, 82px);
+  line-height: 1.05;
+  color: #b3002d;
+}
+
+.gift-page__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.gift-card {
+  min-height: 170px;
+  padding: 24px 16px;
+  border: 1.5px solid rgba(179, 0, 45, 0.3);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.78);
+  color: #b3002d;
+  text-decoration: none;
+  box-shadow: 0 16px 34px rgba(179, 0, 45, 0.13);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: transform 250ms ease, box-shadow 250ms ease, background 250ms ease;
+  animation: giftFloat 3s ease-in-out infinite;
+}
+
+.gift-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.gift-card:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.gift-card:nth-child(4) {
+  animation-delay: 0.6s;
+}
+
+.gift-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  background: #ffffff;
+  box-shadow: 0 22px 48px rgba(179, 0, 45, 0.24);
+}
+
+.gift-card__icon {
+  font-size: clamp(44px, 8vw, 64px);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.gift-card__text {
+  font-size: 17px;
+  font-weight: 600;
+  color: #5a0a1a;
+}
+
+@keyframes giftFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes giftFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+@media (max-width: 768px) {
+  .gift-page__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gift-card {
+    min-height: 150px;
+  }
+}
+
+@media (max-width: 420px) {
+  .gift-page {
+    padding: 22px;
+  }
+
+  .gift-page__title {
+    margin-bottom: 32px;
+  }
+
+  .gift-page__grid {
+    gap: 14px;
+  }
+
+  .gift-card {
+    min-height: 138px;
+    padding: 20px 12px;
+    border-radius: 20px;
+  }
+}
