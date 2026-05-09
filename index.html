@@ -8,21 +8,71 @@
     <title>Happy Birthday Ray!</title>
 </head>
 <body>
-    <section class="love-landing">
-  <div class="love-landing__content">
-    <h1 class="love-landing__title">hey Babe!</h1>
-
-    <!-- ENVELOPE -->
-    <button class="envelope" onclick="openLetter()" aria-label="Open letter">
-      <div class="envelope__body"></div>
-      <div class="envelope__flap"></div>
-      <div class="envelope__seal"></div>
-    </button>
-
-    <p class="love-landing__text">you've got a new email</p>
-    <p class="love-landing__hint">Click seal to open</p>
+<section class="greeting-landing">
+  <div class="greeting-container">
+    <h1 class="greeting-title inspiration-regular" >Happy Birthday!</h1>
+    <img src="./Assets/img/Global/red-envelope.png" alt="Invitation Image" class="invitation-mail">
+    <p class="invitation-label">Click the seal to open</p>
+    <div class="link-button"></div>
   </div>
 </section>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inspiration&display=swap');
+
+  *{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+  }
+  .inspiration-regular {
+    font-family: "Inspiration", cursive;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .greeting-landing{
+    background: #AD1919;
+    height:100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .greeting-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background:#ffffff;
+    min-width: 90vw;
+    min-height: 90vh;
+    margin:auto;
+    position: relative;
+  }
+  .greeting-title{
+    font-size: 64px;
+    color: #AD1919;
+    margin-bottom:20px;
+  }
+  .invitation-mail{
+    max-width: 402px;
+    width:75vw;
+    height:auto;
+    margin-bottom:20px;
+  }
+  .invitation-label{
+    font-size: 24px;
+    color:#AD1919;
+  }
+  .link-button{
+    width: 402px;
+    height: 289px;
+    position: absolute;
+    top: 54%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+</style>
 
 <script src="./js/index.js" defer></script>
 
