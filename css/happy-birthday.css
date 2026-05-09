@@ -116,7 +116,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
   justify-content: center;
   align-items: center;
 }
@@ -174,8 +174,6 @@
   text-decoration: none;
   font-size: 18px;
   padding: 14px 36px;
-  border: 1px solid rgba(255,255,255,0.6);
-  border-radius: 999px;
 
   backdrop-filter: blur(10px);
 
@@ -201,8 +199,6 @@
 
 .link-page:hover {
   transform: translateY(-4px) scale(1.04);
-  background: rgba(255,255,255,0.15);
-  border-color: #ffffff;
 }
 
 /* ========================================
