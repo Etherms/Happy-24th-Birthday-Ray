@@ -21,56 +21,56 @@
   @import url('https://fonts.googleapis.com/css2?family=Inspiration&display=swap');
 
   *{
-    padding: 0px;
-    margin: 0px;
-    box-sizing: border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
   }
-  .inspiration-regular {
-    font-family: "Inspiration", cursive;
-    font-weight: 400;
-    font-style: normal;
+
+  html, body{
+    width:100%;
+    overflow-x:hidden;
+    background:#AD1919;
   }
 
   .greeting-landing{
-    background: #AD1919;
-    height:100dvh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    min-height:100dvh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    overflow:hidden;
   }
+
   .greeting-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background:#ffffff;
-    min-width: 90vw;
-    min-height: 90dvh;
-    margin:auto;
-    position: relative;
+    position:relative;
+
+    width:min(90%, 500px);
+    min-height:90%;
+
+    background:#fff;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
   }
-  .greeting-title{
-    font-size: 64px;
-    color: #AD1919;
-    margin-bottom:20px;
-  }
+
   .invitation-mail{
-    max-width: 402px;
-    width:75vw;
+    width:min(75vw, 402px);
     height:auto;
-    margin-bottom:20px;
+
+    display:block; /* removes image bottom gap */
   }
-  .invitation-label{
-    font-size: 24px;
-    color:#AD1919;
-  }
+
   .link-button{
-    width: 402px;
-    height: 289px;
-    position: absolute;
-    top: 54%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position:absolute;
+
+    width:min(75vw, 402px);
+    aspect-ratio:402/289;
+
+    top:54%;
+    left:50%;
+    transform:translate(-50%, -50%);
   }
 </style>
 
