@@ -1,14 +1,17 @@
-function openLetter() {
-  const envelope = document.querySelector('.envelope');
-  envelope.classList.add('open');
+window.addEventListener("DOMContentLoaded", () => {
+  const music = document.getElementById("bg-music");
 
-  // OPTIONAL: play music
-  const music = document.getElementById('bgMusic');
-  if (music) music.play();
+  // Try autoplay
+  music.play().catch(() => {
+    console.log("Autoplay blocked by browser");
+  });
 
-  // delay before going to next page
-  setTimeout(() => {
-    console.log("Go to next page");
-    // later: switch to page 2
-  }, 800);
-}
+  // Toggle pause/play anywhere on page click
+  document.addEventListener("click", () => {
+    if (music.paused) {
+      music.play();
+    } else {
+      music.pause();
+    }
+  });
+});
