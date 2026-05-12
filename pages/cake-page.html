@@ -51,7 +51,6 @@
       z-index: 10;
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
       pointer-events: none;
       color: white;
     }
@@ -81,10 +80,10 @@
       transform: translateX(-50%);
       z-index: 10;
       color: white;
-      font-size: 18px;
+      font-size: 28px;
       text-align: center;
       background: rgba(255,255,255,0.14);
-      padding: 8px 14px;
+      padding: 6px 16px;
       pointer-events: none;
     }
 
@@ -206,10 +205,6 @@
       .panel p {
         font-size: 20px;
       }
-
-      .goal {
-        font-size: 16px;
-      }
     }
   </style>
 </head>
@@ -231,7 +226,7 @@
       </div>
     </div>
 
-    <div class="goal">Reach 2200 to unlock a secret ♡</div>
+    <div class="goal">♡</div>
 
     <div class="touch-zone touch-left" id="leftZone"></div>
     <div class="touch-zone touch-right" id="rightZone"></div>
@@ -241,7 +236,7 @@
     <section class="start-screen" id="startScreen">
       <div class="panel">
         <h1>Cake Jump</h1>
-        <p>Reach the top to unlock your secret birthday message.</p>
+        <p>Try to reach as high as you can.</p>
         <p class="small-text">Hold the left or right side of the screen to move.</p>
         <button id="startBtn">Start Game</button>
       </div>
@@ -262,7 +257,7 @@
       <div class="panel">
         <h1>You made it ♡</h1>
         <p>
-          You reached the top, but honestly, you were already my favorite part from the start.
+          You reached something special, but honestly, you were already my favorite part from the start.
         </p>
         <p>
           Happy Birthday, my love. I hope this little surprise made you smile.
@@ -298,6 +293,7 @@
     let player;
     let platforms;
     let particles;
+
     let score = 0;
     let bestScore = Number(localStorage.getItem("cakeJumpBest")) || 0;
     let cameraY = 0;
@@ -307,7 +303,7 @@
     let moveLeft = false;
     let moveRight = false;
 
-    const GOAL_SCORE = 2200;
+    const GOAL_SCORE = 5242;
 
     bestText.textContent = bestScore;
 
@@ -341,19 +337,19 @@
 
       platforms = [];
 
-      const basePlatform = {
-        x: width / 2 - 55,
+      platforms.push({
+        x: width / 2 - 60,
         y: height - 90,
-        w: 110,
+        w: 120,
         h: 16,
-        type: "base"
-      };
-
-      platforms.push(basePlatform);
+        type: "base",
+        moving: false,
+        speed: 0
+      });
 
       let y = height - 170;
 
-      for (let i = 0; i < 22; i++) {
+      for (let i = 0; i < 28; i++) {
         createPlatform(y);
         y -= 90;
       }
@@ -364,15 +360,22 @@
     }
 
     function createPlatform(y) {
-      const easyMode = score > 1600;
-      const platformWidth = easyMode ? 120 : Math.max(78, 115 - score / 55);
+      const difficulty = Math.min(score / GOAL_SCORE, 1);
+
+      const platformWidth = Math.max(68, 112 - difficulty * 28);
+
+      const isMoving = score > 1800 && Math.random() > 0.82;
 
       platforms.push({
         x: Math.random() * (width - platformWidth - 24) + 12,
         y: y,
         w: platformWidth,
-        h: 15,
-        type: Math.random() > 0.75 ? "heart" : "cloud"
+        h: 14,
+        type: Math.random() > 0.8 ? "heart" : "cloud",
+        moving: isMoving,
+        speed: isMoving
+          ? (Math.random() > 0.5 ? 1 : -1) * (0.45 + difficulty * 0.7)
+          : 0
       });
     }
 
@@ -380,6 +383,8 @@
       resizeCanvas();
       resetGame();
       startScreen.style.display = "none";
+      gameOver.style.display = "none";
+      secretMessage.style.display = "none";
       gameRunning = true;
       requestAnimationFrame(gameLoop);
     }
@@ -398,17 +403,34 @@
     }
 
     function update() {
-      if (moveLeft) player.vx -= 0.55;
-      if (moveRight) player.vx += 0.55;
+      const difficulty = Math.min(score / GOAL_SCORE, 1);
+
+      if (moveLeft) player.vx -= 0.58;
+      if (moveRight) player.vx += 0.58;
 
       player.vx *= 0.88;
-      player.vy += 0.42;
+      player.vy += 0.4 + difficulty * 0.04;
 
       player.x += player.vx;
       player.y += player.vy;
 
-      if (player.x < -player.radius) player.x = width + player.radius;
-      if (player.x > width + player.radius) player.x = -player.radius;
+      if (player.x < -player.radius) {
+        player.x = width + player.radius;
+      }
+
+      if (player.x > width + player.radius) {
+        player.x = -player.radius;
+      }
+
+      platforms.forEach(platform => {
+        if (platform.moving) {
+          platform.x += platform.speed;
+
+          if (platform.x <= 8 || platform.x + platform.w >= width - 8) {
+            platform.speed *= -1;
+          }
+        }
+      });
 
       if (player.vy > 0) {
         platforms.forEach(platform => {
@@ -422,7 +444,7 @@
             player.x > platform.x &&
             player.x < platform.x + platform.w
           ) {
-            player.vy = -13.5;
+            player.vy = -13.2;
             addBounceParticles(player.x, platform.y);
           }
         });
@@ -430,6 +452,7 @@
 
       if (player.y < height * 0.42) {
         const difference = height * 0.42 - player.y;
+
         player.y = height * 0.42;
         cameraY += difference;
 
@@ -437,7 +460,7 @@
           platform.y += difference;
         });
 
-        score += Math.floor(difference);
+        score += Math.floor(difference * 0.42);
 
         if (score > bestScore) {
           bestScore = score;
@@ -454,9 +477,10 @@
 
       platforms = platforms.filter(platform => platform.y < height + 80);
 
-      while (platforms.length < 24) {
+      while (platforms.length < 28) {
         const highestY = Math.min(...platforms.map(p => p.y));
-        createPlatform(highestY - 88);
+        const gap = 88 + difficulty * 18;
+        createPlatform(highestY - gap);
       }
 
       particles.forEach(p => {
@@ -478,7 +502,7 @@
       ctx.fillStyle = "#AD1919";
       ctx.fillRect(0, 0, width, height);
 
-      for (let i = 0; i < 18; i++) {
+      for (let i = 0; i < 22; i++) {
         const x = (i * 73 + cameraY * 0.12) % width;
         const y = (i * 127 + cameraY * 0.22) % height;
 
@@ -494,18 +518,13 @@
     function drawPlatform(platform) {
       ctx.save();
 
-      if (platform.type === "heart") {
-        ctx.fillStyle = "#ffd7df";
-      } else {
-        ctx.fillStyle = "#fff8f8";
-      }
+      ctx.fillStyle = platform.type === "heart" ? "#ffd7df" : "#fff8f8";
 
       ctx.shadowColor = "rgba(0,0,0,0.22)";
       ctx.shadowBlur = 12;
       ctx.shadowOffsetY = 6;
 
-      ctx.beginPath();
-      ctx.roundRect(platform.x, platform.y, platform.w, platform.h, 8);
+      roundRect(platform.x, platform.y, platform.w, platform.h, 8);
       ctx.fill();
 
       ctx.restore();
@@ -565,7 +584,6 @@
 
     function draw() {
       drawBackground();
-
       platforms.forEach(drawPlatform);
       drawParticles();
       drawPlayer();
@@ -581,7 +599,7 @@
     }
 
     function createConfetti() {
-      for (let i = 0; i < 70; i++) {
+      for (let i = 0; i < 80; i++) {
         const confetti = document.createElement("div");
         confetti.className = "confetti";
 
@@ -597,6 +615,20 @@
       }
     }
 
+    function roundRect(x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.lineTo(x + w - r, y);
+      ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+      ctx.lineTo(x + w, y + h - r);
+      ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+      ctx.lineTo(x + r, y + h);
+      ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+      ctx.lineTo(x, y + r);
+      ctx.quadraticCurveTo(x, y, x + r, y);
+      ctx.closePath();
+    }
+
     function pressLeft(e) {
       e.preventDefault();
       moveLeft = true;
@@ -607,31 +639,51 @@
       moveRight = true;
     }
 
-    function releaseMove(e) {
-      if (e) e.preventDefault();
+    function releaseLeft(e) {
+      e.preventDefault();
       moveLeft = false;
+    }
+
+    function releaseRight(e) {
+      e.preventDefault();
       moveRight = false;
     }
 
     leftZone.addEventListener("touchstart", pressLeft);
-    rightZone.addEventListener("touchstart", pressRight);
+    leftZone.addEventListener("touchend", releaseLeft);
+    leftZone.addEventListener("touchcancel", releaseLeft);
 
-    leftZone.addEventListener("touchend", releaseMove);
-    rightZone.addEventListener("touchend", releaseMove);
+    rightZone.addEventListener("touchstart", pressRight);
+    rightZone.addEventListener("touchend", releaseRight);
+    rightZone.addEventListener("touchcancel", releaseRight);
 
     leftZone.addEventListener("mousedown", pressLeft);
     rightZone.addEventListener("mousedown", pressRight);
 
-    window.addEventListener("mouseup", releaseMove);
+    leftZone.addEventListener("mouseup", releaseLeft);
+    rightZone.addEventListener("mouseup", releaseRight);
+
+    leftZone.addEventListener("mouseleave", releaseLeft);
+    rightZone.addEventListener("mouseleave", releaseRight);
 
     window.addEventListener("keydown", e => {
-      if (e.key === "ArrowLeft" || e.key.toLowerCase() === "a") moveLeft = true;
-      if (e.key === "ArrowRight" || e.key.toLowerCase() === "d") moveRight = true;
+      if (e.key === "ArrowLeft" || e.key.toLowerCase() === "a") {
+        moveLeft = true;
+      }
+
+      if (e.key === "ArrowRight" || e.key.toLowerCase() === "d") {
+        moveRight = true;
+      }
     });
 
     window.addEventListener("keyup", e => {
-      if (e.key === "ArrowLeft" || e.key.toLowerCase() === "a") moveLeft = false;
-      if (e.key === "ArrowRight" || e.key.toLowerCase() === "d") moveRight = false;
+      if (e.key === "ArrowLeft" || e.key.toLowerCase() === "a") {
+        moveLeft = false;
+      }
+
+      if (e.key === "ArrowRight" || e.key.toLowerCase() === "d") {
+        moveRight = false;
+      }
     });
 
     startBtn.addEventListener("click", startGame);
@@ -639,7 +691,10 @@
 
     window.addEventListener("resize", () => {
       resizeCanvas();
-      if (!gameRunning) draw();
+
+      if (!gameRunning) {
+        draw();
+      }
     });
 
     resizeCanvas();
