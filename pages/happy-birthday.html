@@ -4,13 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday Ray!</title>
-
+  <link rel="icon" type="image/png" href="./Assets/Icons/favicon.png">
   <link rel="stylesheet" href="../css/happy-birthday.css">
   <link rel="stylesheet" href="../css/global.css">
   
 </head>
 
 <body>
+  <script>
+  if (sessionStorage.getItem("birthdayAccess") !== "granted") {
+    window.location.href = "../";
+  }
+</script>
 
   <!-- BACKGROUND -->
   <div class="background-image">
