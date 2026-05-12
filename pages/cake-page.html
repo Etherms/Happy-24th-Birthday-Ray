@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Birthday Game</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #AD1919;
+      font-family: "Cormorant Garamond", serif;
+      touch-action: none;
+    }
+
+    .game-page {
+      width: 100vw;
+      height: 100dvh;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.18), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(255,210,220,0.18), transparent 35%),
+        #AD1919;
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .hud {
+      position: fixed;
+      top: 16px;
+      left: 0;
+      width: 100%;
+      padding: 0 18px;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      pointer-events: none;
+      color: white;
+    }
+
+    .score-box {
+      background: rgba(255,255,255,0.16);
+      backdrop-filter: blur(8px);
+      padding: 10px 14px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.18);
+    }
+
+    .score-label {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    .score-value {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .goal {
+      position: fixed;
+      top: 94px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      color: white;
+      font-size: 18px;
+      text-align: center;
+      background: rgba(255,255,255,0.14);
+      padding: 8px 14px;
+      pointer-events: none;
+    }
+
+    .start-screen,
+    .game-over,
+    .secret-message {
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      background: rgba(173,25,25,0.88);
+      color: white;
+      text-align: center;
+    }
+
+    .game-over,
+    .secret-message {
+      display: none;
+    }
+
+    .panel {
+      width: 100%;
+      max-width: 380px;
+      background: rgba(255,255,255,0.16);
+      padding: 34px 24px;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.22);
+      backdrop-filter: blur(10px);
+    }
+
+    .panel h1 {
+      font-family: "Parisienne", cursive;
+      font-size: 58px;
+      font-weight: 400;
+      line-height: 0.95;
+      margin-bottom: 18px;
+    }
+
+    .panel p {
+      font-size: 22px;
+      line-height: 1.35;
+      margin-bottom: 18px;
+    }
+
+    .small-text {
+      font-size: 17px !important;
+      opacity: 0.9;
+    }
+
+    button,
+    .back-link {
+      border: none;
+      outline: none;
+      background: #fff8f8;
+      color: #AD1919;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 22px;
+      font-weight: 700;
+      padding: 12px 24px;
+      cursor: pointer;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.18);
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    .controls-hint {
+      position: fixed;
+      bottom: 20px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      color: rgba(255,255,255,0.85);
+      font-size: 17px;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .touch-zone {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 50%;
+      z-index: 5;
+    }
+
+    .touch-left {
+      left: 0;
+    }
+
+    .touch-right {
+      right: 0;
+    }
+
+    .confetti {
+      position: fixed;
+      top: -20px;
+      width: 10px;
+      height: 16px;
+      background: white;
+      z-index: 50;
+      animation: fallConfetti 3s linear forwards;
+    }
+
+    @keyframes fallConfetti {
+      to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .panel h1 {
+        font-size: 50px;
+      }
+
+      .panel p {
+        font-size: 20px;
+      }
+
+      .goal {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="game-page">
+    <canvas id="gameCanvas"></canvas>
+
+    <div class="hud">
+      <div class="score-box">
+        <div class="score-label">Score</div>
+        <div class="score-value" id="scoreText">0</div>
+      </div>
+
+      <div class="score-box">
+        <div class="score-label">Best</div>
+        <div class="score-value" id="bestText">0</div>
+      </div>
+    </div>
+
+    <div class="goal">Reach 2200 to unlock a secret ♡</div>
+
+    <div class="touch-zone touch-left" id="leftZone"></div>
+    <div class="touch-zone touch-right" id="rightZone"></div>
+
+    <div class="controls-hint">Hold left or right side to move</div>
+
+    <section class="start-screen" id="startScreen">
+      <div class="panel">
+        <h1>Cake Jump</h1>
+        <p>Reach the top to unlock your secret birthday message.</p>
+        <p class="small-text">Hold the left or right side of the screen to move.</p>
+        <button id="startBtn">Start Game</button>
+      </div>
+    </section>
+
+    <section class="game-over" id="gameOver">
+      <div class="panel">
+        <h1>Oops ♡</h1>
+        <p>You fell, but you can try again.</p>
+        <p class="small-text">Highest score: <span id="finalBest">0</span></p>
+        <button id="restartBtn">Restart</button>
+        <br>
+        <a href="./gift-page.html" class="back-link">Back to Gifts</a>
+      </div>
+    </section>
+
+    <section class="secret-message" id="secretMessage">
+      <div class="panel">
+        <h1>You made it ♡</h1>
+        <p>
+          You reached the top, but honestly, you were already my favorite part from the start.
+        </p>
+        <p>
+          Happy Birthday, my love. I hope this little surprise made you smile.
+        </p>
+        <p class="small-text">Love, Ed ♡</p>
+        <a href="./gift-page.html" class="back-link">Back to Gifts</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const scoreText = document.getElementById("scoreText");
+    const bestText = document.getElementById("bestText");
+    const finalBest = document.getElementById("finalBest");
+
+    const startScreen = document.getElementById("startScreen");
+    const gameOver = document.getElementById("gameOver");
+    const secretMessage = document.getElementById("secretMessage");
+
+    const startBtn = document.getElementById("startBtn");
+    const restartBtn = document.getElementById("restartBtn");
+
+    const leftZone = document.getElementById("leftZone");
+    const rightZone = document.getElementById("rightZone");
+
+    let width;
+    let height;
+    let dpr;
+
+    let player;
+    let platforms;
+    let particles;
+    let score = 0;
+    let bestScore = Number(localStorage.getItem("cakeJumpBest")) || 0;
+    let cameraY = 0;
+    let gameRunning = false;
+    let unlocked = false;
+
+    let moveLeft = false;
+    let moveRight = false;
+
+    const GOAL_SCORE = 2200;
+
+    bestText.textContent = bestScore;
+
+    function resizeCanvas() {
+      dpr = window.devicePixelRatio || 1;
+      width = window.innerWidth;
+      height = window.innerHeight;
+
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+
+      canvas.style.width = width + "px";
+      canvas.style.height = height + "px";
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function resetGame() {
+      score = 0;
+      cameraY = 0;
+      unlocked = false;
+      particles = [];
+
+      player = {
+        x: width / 2,
+        y: height - 160,
+        radius: 18,
+        vx: 0,
+        vy: -15
+      };
+
+      platforms = [];
+
+      const basePlatform = {
+        x: width / 2 - 55,
+        y: height - 90,
+        w: 110,
+        h: 16,
+        type: "base"
+      };
+
+      platforms.push(basePlatform);
+
+      let y = height - 170;
+
+      for (let i = 0; i < 22; i++) {
+        createPlatform(y);
+        y -= 90;
+      }
+
+      scoreText.textContent = 0;
+      gameOver.style.display = "none";
+      secretMessage.style.display = "none";
+    }
+
+    function createPlatform(y) {
+      const easyMode = score > 1600;
+      const platformWidth = easyMode ? 120 : Math.max(78, 115 - score / 55);
+
+      platforms.push({
+        x: Math.random() * (width - platformWidth - 24) + 12,
+        y: y,
+        w: platformWidth,
+        h: 15,
+        type: Math.random() > 0.75 ? "heart" : "cloud"
+      });
+    }
+
+    function startGame() {
+      resizeCanvas();
+      resetGame();
+      startScreen.style.display = "none";
+      gameRunning = true;
+      requestAnimationFrame(gameLoop);
+    }
+
+    function endGame() {
+      gameRunning = false;
+      finalBest.textContent = bestScore;
+      gameOver.style.display = "flex";
+    }
+
+    function unlockSecret() {
+      gameRunning = false;
+      unlocked = true;
+      secretMessage.style.display = "flex";
+      createConfetti();
+    }
+
+    function update() {
+      if (moveLeft) player.vx -= 0.55;
+      if (moveRight) player.vx += 0.55;
+
+      player.vx *= 0.88;
+      player.vy += 0.42;
+
+      player.x += player.vx;
+      player.y += player.vy;
+
+      if (player.x < -player.radius) player.x = width + player.radius;
+      if (player.x > width + player.radius) player.x = -player.radius;
+
+      if (player.vy > 0) {
+        platforms.forEach(platform => {
+          const playerBottom = player.y + player.radius;
+          const wasAbove = player.y + player.radius - player.vy <= platform.y;
+
+          if (
+            wasAbove &&
+            playerBottom >= platform.y &&
+            playerBottom <= platform.y + platform.h + 14 &&
+            player.x > platform.x &&
+            player.x < platform.x + platform.w
+          ) {
+            player.vy = -13.5;
+            addBounceParticles(player.x, platform.y);
+          }
+        });
+      }
+
+      if (player.y < height * 0.42) {
+        const difference = height * 0.42 - player.y;
+        player.y = height * 0.42;
+        cameraY += difference;
+
+        platforms.forEach(platform => {
+          platform.y += difference;
+        });
+
+        score += Math.floor(difference);
+
+        if (score > bestScore) {
+          bestScore = score;
+          localStorage.setItem("cakeJumpBest", bestScore);
+        }
+
+        scoreText.textContent = score;
+        bestText.textContent = bestScore;
+
+        if (score >= GOAL_SCORE && !unlocked) {
+          unlockSecret();
+        }
+      }
+
+      platforms = platforms.filter(platform => platform.y < height + 80);
+
+      while (platforms.length < 24) {
+        const highestY = Math.min(...platforms.map(p => p.y));
+        createPlatform(highestY - 88);
+      }
+
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.life -= 1;
+      });
+
+      particles = particles.filter(p => p.life > 0);
+
+      if (player.y - player.radius > height + 40) {
+        endGame();
+      }
+    }
+
+    function drawBackground() {
+      ctx.clearRect(0, 0, width, height);
+
+      ctx.fillStyle = "#AD1919";
+      ctx.fillRect(0, 0, width, height);
+
+      for (let i = 0; i < 18; i++) {
+        const x = (i * 73 + cameraY * 0.12) % width;
+        const y = (i * 127 + cameraY * 0.22) % height;
+
+        ctx.globalAlpha = 0.12;
+        ctx.fillStyle = "#ffffff";
+        ctx.font = `${18 + (i % 3) * 8}px serif`;
+        ctx.fillText("♡", x, y);
+      }
+
+      ctx.globalAlpha = 1;
+    }
+
+    function drawPlatform(platform) {
+      ctx.save();
+
+      if (platform.type === "heart") {
+        ctx.fillStyle = "#ffd7df";
+      } else {
+        ctx.fillStyle = "#fff8f8";
+      }
+
+      ctx.shadowColor = "rgba(0,0,0,0.22)";
+      ctx.shadowBlur = 12;
+      ctx.shadowOffsetY = 6;
+
+      ctx.beginPath();
+      ctx.roundRect(platform.x, platform.y, platform.w, platform.h, 8);
+      ctx.fill();
+
+      ctx.restore();
+
+      ctx.fillStyle = "#AD1919";
+      ctx.font = "16px serif";
+      ctx.fillText("♡", platform.x + platform.w / 2 - 5, platform.y + 12);
+    }
+
+    function drawPlayer() {
+      ctx.save();
+
+      ctx.translate(player.x, player.y);
+
+      ctx.fillStyle = "#fff8f8";
+      ctx.shadowColor = "rgba(0,0,0,0.25)";
+      ctx.shadowBlur = 15;
+      ctx.shadowOffsetY = 8;
+
+      ctx.beginPath();
+      ctx.arc(0, 0, player.radius, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = "#AD1919";
+      ctx.font = "24px serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("♡", 0, 1);
+
+      ctx.restore();
+    }
+
+    function drawParticles() {
+      particles.forEach(p => {
+        ctx.globalAlpha = p.life / 25;
+        ctx.fillStyle = "#fff8f8";
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      });
+    }
+
+    function addBounceParticles(x, y) {
+      for (let i = 0; i < 8; i++) {
+        particles.push({
+          x,
+          y,
+          vx: (Math.random() - 0.5) * 4,
+          vy: (Math.random() - 1.5) * 3,
+          size: Math.random() * 3 + 2,
+          life: 25
+        });
+      }
+    }
+
+    function draw() {
+      drawBackground();
+
+      platforms.forEach(drawPlatform);
+      drawParticles();
+      drawPlayer();
+    }
+
+    function gameLoop() {
+      if (!gameRunning) return;
+
+      update();
+      draw();
+
+      requestAnimationFrame(gameLoop);
+    }
+
+    function createConfetti() {
+      for (let i = 0; i < 70; i++) {
+        const confetti = document.createElement("div");
+        confetti.className = "confetti";
+
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.animationDelay = Math.random() * 1.5 + "s";
+        confetti.style.background = ["#fff", "#ffd7df", "#ffb3c1", "#ffe6ea"][Math.floor(Math.random() * 4)];
+
+        document.body.appendChild(confetti);
+
+        setTimeout(() => {
+          confetti.remove();
+        }, 4500);
+      }
+    }
+
+    function pressLeft(e) {
+      e.preventDefault();
+      moveLeft = true;
+    }
+
+    function pressRight(e) {
+      e.preventDefault();
+      moveRight = true;
+    }
+
+    function releaseMove(e) {
+      if (e) e.preventDefault();
+      moveLeft = false;
+      moveRight = false;
+    }
+
+    leftZone.addEventListener("touchstart", pressLeft);
+    rightZone.addEventListener("touchstart", pressRight);
+
+    leftZone.addEventListener("touchend", releaseMove);
+    rightZone.addEventListener("touchend", releaseMove);
+
+    leftZone.addEventListener("mousedown", pressLeft);
+    rightZone.addEventListener("mousedown", pressRight);
+
+    window.addEventListener("mouseup", releaseMove);
+
+    window.addEventListener("keydown", e => {
+      if (e.key === "ArrowLeft" || e.key.toLowerCase() === "a") moveLeft = true;
+      if (e.key === "ArrowRight" || e.key.toLowerCase() === "d") moveRight = true;
+    });
+
+    window.addEventListener("keyup", e => {
+      if (e.key === "ArrowLeft" || e.key.toLowerCase() === "a") moveLeft = false;
+      if (e.key === "ArrowRight" || e.key.toLowerCase() === "d") moveRight = false;
+    });
+
+    startBtn.addEventListener("click", startGame);
+    restartBtn.addEventListener("click", startGame);
+
+    window.addEventListener("resize", () => {
+      resizeCanvas();
+      if (!gameRunning) draw();
+    });
+
+    resizeCanvas();
+    resetGame();
+    draw();
+  </script>
+
+</body>
+</html>

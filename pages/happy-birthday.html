@@ -1,401 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Letter For You</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Ray!</title>
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Parisienne&display=swap" rel="stylesheet">
-
-  <style>
-
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
-
-    html{
-      scroll-behavior:smooth;
-    }
-
-    body{
-      width:100%;
-      min-height:100dvh;
-      background:#AD1919;
-      display:flex;
-      justify-content:center;
-      padding:40px 20px 80px;
-      overflow-x:hidden;
-      font-family:"Cormorant Garamond", serif;
-      position:relative;
-    }
-
-    /* floating particles */
-
-    .particle{
-      position:fixed;
-      width:10px;
-      height:10px;
-      background:rgba(255,255,255,0.12);
-      border-radius:50%;
-      animation:floatParticle linear infinite;
-      z-index:0;
-    }
-
-    .particle:nth-child(1){
-      left:10%;
-      animation-duration:8s;
-    }
-
-    .particle:nth-child(2){
-      left:25%;
-      width:6px;
-      height:6px;
-      animation-duration:11s;
-      animation-delay:2s;
-    }
-
-    .particle:nth-child(3){
-      left:50%;
-      width:14px;
-      height:14px;
-      animation-duration:10s;
-      animation-delay:1s;
-    }
-
-    .particle:nth-child(4){
-      left:70%;
-      width:7px;
-      height:7px;
-      animation-duration:9s;
-      animation-delay:3s;
-    }
-
-    .particle:nth-child(5){
-      left:88%;
-      width:12px;
-      height:12px;
-      animation-duration:13s;
-      animation-delay:0s;
-    }
-
-    @keyframes floatParticle{
-      from{
-        transform:translateY(110vh);
-        opacity:0;
-      }
-
-      20%{
-        opacity:1;
-      }
-
-      to{
-        transform:translateY(-120px);
-        opacity:0;
-      }
-    }
-
-    .scene{
-      width:100%;
-      max-width:430px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      position:relative;
-      z-index:2;
-    }
-
-    /* crumpled paper */
-
-    .crumpled-paper{
-      position:absolute;
-      top:120px;
-      width:150px;
-      height:150px;
-      background:#fff;
-      z-index:4;
-
-      box-shadow:
-      inset -18px -18px 20px rgba(0,0,0,0.12),
-      inset 15px 15px 18px rgba(255,255,255,0.9),
-      0 20px 45px rgba(0,0,0,0.25);
-
-      transform:scale(1) rotate(-12deg);
-
-      animation:crumpleMove 1.9s ease forwards;
-    }
-
-    .crumpled-paper::before,
-    .crumpled-paper::after{
-      content:"";
-      position:absolute;
-      inset:18px;
-
-      background:
-      linear-gradient(
-        45deg,
-        transparent 30%,
-        rgba(0,0,0,0.08) 31%,
-        transparent 45%
-      ),
-      linear-gradient(
-        -45deg,
-        transparent 35%,
-        rgba(0,0,0,0.06) 36%,
-        transparent 52%
-      );
-    }
-
-    .crumpled-paper::after{
-      inset:32px;
-      transform:rotate(60deg);
-    }
-
-    /* LETTER */
-
-    .letter{
-      width:min(92vw, 380px);
-      background:#fffdf7;
-      position:relative;
-      z-index:2;
-
-      padding:42px 28px;
-
-      opacity:0;
-      transform:scale(0.3);
-
-      box-shadow:
-      0 25px 60px rgba(0,0,0,0.22);
-
-      animation:
-      letterReveal 1.4s ease 1s forwards;
-    }
-
-    /* paper lines */
-
-    .letter::before{
-      content:"";
-      position:absolute;
-      inset:0;
-
-      background:
-      repeating-linear-gradient(
-        to bottom,
-        transparent 0px,
-        transparent 33px,
-        rgba(173,25,25,0.10) 34px
-      );
-
-      pointer-events:none;
-    }
-
-    .letter-content{
-      position:relative;
-      z-index:2;
-      color:#7A1212;
-    }
-
-    .letter-content h1{
-      font-family:"Parisienne", cursive;
-      font-size:52px;
-      line-height:1;
-      margin-bottom:26px;
-      text-align:center;
-      font-weight:400;
-    }
-
-    .letter-content p{
-      font-size:24px;
-      line-height:1.55;
-      margin-bottom:28px;
-      font-weight:500;
-    }
-
-    .signature{
-      margin-top:40px;
-      text-align:right;
-      font-family:"Parisienne", cursive;
-      font-size:42px;
-      line-height:1.1;
-    }
-
-    /* BACK BUTTON */
-
-    .back-link{
-      margin-top:28px;
-      text-decoration:none;
-      color:white;
-      font-size:22px;
-      font-weight:600;
-      border-bottom:2px solid rgba(255,255,255,0.5);
-      padding-bottom:4px;
-      transition:0.3s ease;
-    }
-
-    .back-link:hover{
-      opacity:0.7;
-      transform:translateY(-2px);
-    }
-
-    /* ANIMATIONS */
-
-    @keyframes crumpleMove{
-
-      0%{
-        opacity:1;
-        transform:
-        scale(1)
-        rotate(-12deg);
-      }
-
-      45%{
-        opacity:1;
-        transform:
-        scale(1.5)
-        rotate(12deg);
-      }
-
-      100%{
-        opacity:0;
-        transform:
-        scale(4.5)
-        rotate(0deg);
-      }
-    }
-
-    @keyframes letterReveal{
-
-      0%{
-        opacity:0;
-        transform:
-        scale(0.3)
-        rotate(10deg);
-        filter:blur(5px);
-      }
-
-      60%{
-        opacity:1;
-        transform:
-        scale(1.04)
-        rotate(-2deg);
-        filter:blur(0);
-      }
-
-      100%{
-        opacity:1;
-        transform:
-        scale(1)
-        rotate(0deg);
-      }
-    }
-
-    /* MOBILE */
-
-    @media(max-width:480px){
-
-      body{
-        padding:30px 14px 70px;
-      }
-
-      .letter{
-        width:100%;
-        padding:36px 22px;
-      }
-
-      .letter-content h1{
-        font-size:44px;
-      }
-
-      .letter-content p{
-        font-size:21px;
-        line-height:1.5;
-      }
-
-      .signature{
-        font-size:38px;
-      }
-
-      .back-link{
-        font-size:20px;
-      }
-
-      .crumpled-paper{
-        width:130px;
-        height:130px;
-      }
-    }
-
-  </style>
+  <link rel="stylesheet" href="../css/happy-birthday.css">
+  <link rel="stylesheet" href="../css/global.css">
+  
 </head>
 
 <body>
 
-  <!-- particles -->
+  <!-- BACKGROUND -->
+  <div class="background-image">
+    <img src="../Assets/img/Global/background.png" alt="">
+  </div>
 
-  <div class="particle"></div>
-  <div class="particle"></div>
-  <div class="particle"></div>
-  <div class="particle"></div>
-  <div class="particle"></div>
+  <!-- FLOATING HEARTS -->
+  <div class="hearts">
+    <span>♡</span>
+    <span>❤</span>
+    <span>♡</span>
+    <span>❤</span>
+    <span>♡</span>
+    <span>❤</span>
+    <span>♡</span>
+    <span>❤</span>
+    <span>♡</span>
+    <span>❤</span>
+  </div>
 
-  <main class="scene">
+  <!-- CONTENT -->
+  <div class="greeting-container">
 
-    <!-- crumpled paper -->
+    <div class="top-container">
 
-    <div class="crumpled-paper"></div>
-
-    <!-- letter -->
-
-    <section class="letter">
-
-      <div class="letter-content">
-
-        <h1>My Love,</h1>
-
-        <p>
-          I honestly do not know the perfect words to say sometimes.
-          But I always know how much you mean to me every single day.
-          You make even the simplest moments feel special and warm.
-          Talking to you is one of the best parts of my day.
-          I hope this little letter makes you smile even a little.
-        </p>
-
-        <p>
-          Thank you for being patient, caring, and understanding with me.
-          Thank you for listening to my thoughts and random stories.
-          You make me feel safe, appreciated, and genuinely happy.
-          I admire your kindness more than you probably realize.
-          I hope you always remember how important you are to me.
-        </p>
-
-        <p>
-          No matter what happens, I will always cherish you deeply.
-          I want to continue making memories together with you.
-          I hope your days become softer, brighter, and happier.
-          You deserve all the love and care in the world.
-          And I hope I can continue giving that love to you every day.
-        </p>
-
-        <div class="signature">
-          Love,
-          <br>
-          Ed ♡
-        </div>
-
+      <div class="date italianno-regular">
+        <p>05-24-26</p>
       </div>
 
-    </section>
+      <h1 class="happy-birthday-text inspiration-regular">
+        Happy Birthday Ray!
+      </h1>
 
-    <a href="./gift-page.html" class="back-link">
-      ← Go Back
-    </a>
+      <p class="small-message gideon-roman-regular">
+        I hope this little gift will make you happy
+      </p>
 
-  </main>
+    </div>
+
+    <div class="bottom-container">
+      <a href="./gift-page.html" class="link-page">
+        Click Here
+      </a>
+    </div>
+
+  </div>
 
 </body>
 </html>
