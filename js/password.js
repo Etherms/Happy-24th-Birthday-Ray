@@ -1,5 +1,5 @@
 
-const CORRECT_PASSWORD = "ray";
+const CORRECT_PASSWORD = "02-22";
 
 const input = document.getElementById("passwordInput");
 const button = document.getElementById("enterBtn");
