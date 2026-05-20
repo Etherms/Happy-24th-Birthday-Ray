@@ -327,7 +327,7 @@
   }
 
   .happy-birthday-text {
-    font-size: clamp(64px, 22vw, 98px);
+    font-size: 62px;
   }
 
   .small-message {
