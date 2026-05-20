@@ -1,57 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday Ray!</title>
-<link rel="icon" type="image/png" href="./Assets/Icons/favicon.png">
-<link rel="stylesheet" href="../css/gift-page.css">
-<link rel="stylesheet" href="../css/global.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Ray!</title>
 
+  <link rel="icon" type="image/png" href="./Assets/Icons/favicon.png">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/gift-page.css">
 </head>
 
 <body>
-  <script>
+<script>
   if (sessionStorage.getItem("birthdayAccess") !== "granted") {
     window.location.href = "../";
   }
 </script>
 
-<div class="sparkles">
-  <span class="sparkle">✦</span>
-  <span class="sparkle">✧</span>
-  <span class="sparkle">✦</span>
-  <span class="sparkle">✧</span>
-  <span class="sparkle">✦</span>
-  <span class="sparkle">✧</span>
-</div>
-
 <section class="gift-page">
-  <div class="gift-page__content">
 
-    <h1 class="gift-page__title inspiration-regular">These are for you</h1>
+  <div class="bg-heart heart-one">♡</div>
+  <div class="bg-heart heart-two">♡</div>
+  <div class="bg-heart heart-three">♡</div>
 
-    <div class="gift-container">
+  <div class="gift-shell">
 
-      <a href="./letter-page.html" class="gift-value">
-        <img src="../Assets/img/Global/envelope.png" alt="Letter">
-        <p class="gift-label">Letter</p>
-      </a>
+    <p class="gift-small gideon-roman-regular">Choose one, my love</p>
 
-      <a href="./flower-page.html" class="gift-value">
-        <img src="../Assets/img/Global/flower.png" alt="Flower">
-        <p class="gift-label">Flower</p>
-      </a>
+    <h1 class="gift-title inspiration-regular">
+      These are for you
+    </h1>
 
-      <a href="./cake-page.html" class="gift-value">
-        <img src="../Assets/img/Global/strawberry-cake.png" alt="Cake">
-        <p class="gift-label">Cake</p>
-      </a>
+    <div class="gift-slider">
+
+      <button class="slider-btn prev-btn" type="button" aria-label="Previous gift">
+        ‹
+      </button>
+
+      <div class="gift-track">
+
+        <a href="./letter-page.html" class="gift-slide active">
+          <span class="gift-count">01</span>
+          <img src="../Assets/img/Global/envelope.png" alt="Letter">
+          <h2 class="gift-name gideon-roman-regular">Letter</h2>
+          <p class="gift-desc">A little piece of my heart written for you.</p>
+          <span class="open-text">Open this gift ♡</span>
+        </a>
+
+        <a href="./flower-page.html" class="gift-slide">
+          <span class="gift-count">02</span>
+          <img src="../Assets/img/Global/photocard.png" alt="Photocard">
+          <h2 class="gift-name gideon-roman-regular">Photocard</h2>
+          <p class="gift-desc">A small collection of moments and memories that remind me of you.</p>
+          <span class="open-text">Open this gift ♡</span>
+        </a>
+
+        <a href="./cake-page.html" class="gift-slide">
+          <span class="gift-count">03</span>
+          <img src="../Assets/img/Global/controller.png" alt="Cake">
+          <h2 class="gift-name gideon-roman-regular">Game</h2>
+          <p class="gift-desc">  A sweet little game made specially for your birthday.</p>
+          <span class="open-text">Open this gift ♡</span>
+        </a>
+
+      </div>
+
+      <button class="slider-btn next-btn" type="button" aria-label="Next gift">
+        ›
+      </button>
 
     </div>
 
+    <div class="gift-dots">
+      <button class="dot active" type="button" aria-label="Show letter"></button>
+      <button class="dot" type="button" aria-label="Show flower"></button>
+      <button class="dot" type="button" aria-label="Show cake"></button>
+    </div>
+
+    <p class="swipe-hint gideon-roman-regular">
+      Swipe or tap the arrows
+    </p>
+
   </div>
 </section>
+
+<script>
+  const slides = document.querySelectorAll(".gift-slide");
+  const dots = document.querySelectorAll(".dot");
+  const prevBtn = document.querySelector(".prev-btn");
+  const nextBtn = document.querySelector(".next-btn");
+  const track = document.querySelector(".gift-track");
+
+  let currentIndex = 0;
+  let startX = 0;
+
+  function showSlide(index) {
+    currentIndex = (index + slides.length) % slides.length;
+
+    slides.forEach((slide, i) => {
+      slide.classList.toggle("active", i === currentIndex);
+      slide.classList.toggle("prev", i === currentIndex - 1 || (currentIndex === 0 && i === slides.length - 1));
+      slide.classList.toggle("next", i === currentIndex + 1 || (currentIndex === slides.length - 1 && i === 0));
+    });
+
+    dots.forEach((dot, i) => {
+      dot.classList.toggle("active", i === currentIndex);
+    });
+  }
+
+  prevBtn.addEventListener("click", () => showSlide(currentIndex - 1));
+  nextBtn.addEventListener("click", () => showSlide(currentIndex + 1));
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => showSlide(index));
+  });
+
+  track.addEventListener("touchstart", e => {
+    startX = e.touches[0].clientX;
+  });
+
+  track.addEventListener("touchend", e => {
+    const endX = e.changedTouches[0].clientX;
+    const diff = startX - endX;
+
+    if (Math.abs(diff) > 45) {
+      if (diff > 0) {
+        showSlide(currentIndex + 1);
+      } else {
+        showSlide(currentIndex - 1);
+      }
+    }
+  });
+
+  showSlide(0);
+</script>
 
 </body>
 </html>

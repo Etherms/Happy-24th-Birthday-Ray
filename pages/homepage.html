@@ -4,43 +4,56 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday Ray!</title>
-  <link rel="stylesheet" href="../css/index.css">
+
   <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/index.css">
   <link rel="icon" type="image/png" href="./Assets/Icons/favicon.png">
 </head>
 
 <body>
-    <script>
-  if (sessionStorage.getItem("birthdayAccess") !== "granted") {
-    window.location.href = "../";
-  }
-</script>
+  <script>
+    if (sessionStorage.getItem("birthdayAccess") !== "granted") {
+      window.location.href = "../";
+    }
+  </script>
+
   <section class="greeting-landing">
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <span class="floating-heart heart-1">♡</span>
+    <span class="floating-heart heart-2">♡</span>
+    <span class="floating-heart heart-3">♡</span>
+    <span class="floating-heart heart-4">♡</span>
+    <span class="sparkle sparkle-1">✦</span>
+    <span class="sparkle sparkle-2">✧</span>
+    <span class="sparkle sparkle-3">✦</span>
+
     <div class="greeting-container">
-      <h1 class="greeting-title inspiration-regular">Happy Birthday!</h1>
+      <p class="small-text gideon-roman-regular">A little surprise for you</p>
 
-      <img 
-        src="../Assets/img/Global/red-envelope.png" 
-        alt="Invitation Image" 
-        class="invitation-mail"
-      >
+      <h1 class="greeting-title inspiration-regular">
+        Happy Birthday!
+      </h1>
 
-      <p class="invitation-label">Click the seal to open</p>
+      <div class="envelope-wrap">
+        <img 
+          src="../Assets/img/Global/red-envelope.png" 
+          alt="Invitation Image" 
+          class="invitation-mail"
+        >
 
-      <div 
-        class="link-button" 
-        onclick="window.location.href='./happy-birthday.html'"
-        aria-label="Open birthday letter"
-      ></div>
+        <button
+          class="link-button"
+          onclick="window.location.href='./happy-birthday.html'"
+          aria-label="Open birthday letter"
+        ></button>
+      </div>
+
+      <p class="invitation-label gideon-roman-regular">
+        Tap the seal to open your gift ♡
+      </p>
     </div>
   </section>
-  <!-- <button class="music-toggle" id="musicToggle">
-    🔊
-  </button>
-
-  <audio id="bg-music" loop>
-    <source src="../Assets/music/birthday-song.mp3" type="audio/mp3">
-  </audio>
-  <script src="./js/index.js"></script> -->
 </body>
 </html>

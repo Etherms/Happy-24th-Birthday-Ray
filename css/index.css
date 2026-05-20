@@ -1,6 +1,9 @@
 .greeting-landing {
-  background: #AD1919;
-  height: 100dvh;
+  min-height: 100dvh;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(255,255,255,.24), transparent 24%),
+    radial-gradient(circle at 85% 90%, rgba(255,190,205,.28), transparent 28%),
+    linear-gradient(135deg, #690707 0%, #AD1919 48%, #d63a4c 100%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,143 +12,189 @@
   overflow: hidden;
 }
 
-.greeting-landing::before,
-.greeting-landing::after {
-  content: "❤";
+.bg-glow {
   position: absolute;
-  color: rgba(255, 255, 255, 0.2);
-  font-size: 120px;
-  animation: floatHeart 6s ease-in-out infinite;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: .45;
+  pointer-events: none;
 }
 
-.greeting-landing::before {
-  top: 10%;
-  left: 8%;
+.bg-glow-1 {
+  width: 260px;
+  height: 260px;
+  background: #ffb6c6;
+  top: -90px;
+  left: -80px;
 }
 
-.greeting-landing::after {
-  bottom: 8%;
-  right: 10%;
-  animation-delay: 1.5s;
+.bg-glow-2 {
+  width: 320px;
+  height: 320px;
+  background: #fff1f3;
+  bottom: -130px;
+  right: -110px;
 }
 
 .greeting-container {
+  width: min(92vw, 760px);
+  min-height: 88dvh;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,244,246,.96));
+  border-radius: 34px;
+  border: 1px solid rgba(255,255,255,.75);
+  box-shadow: 0 28px 80px rgba(0,0,0,.28);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #ffffff;
-  width: 90vw;
-  min-height: 90dvh;
-  margin: auto;
+  gap: 32px;
   position: relative;
   overflow: hidden;
   animation: containerEntrance 1s ease forwards;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
 }
 
-.greeting-title {
-  font-size: clamp(64px, 12vw, 120px);
-  color: #AD1919;
-  margin-bottom: 20px;
-  opacity: 0;
-  animation: fadeDown 1s ease forwards;
-  animation-delay: 0.3s;
-}
-
-.invitation-mail {
-  max-width: 402px;
-  width: 75vw;
-  height: auto;
-  margin-bottom: 20px;
-  opacity: 0;
-  animation: envelopeEntrance 1s ease forwards, envelopeFloat 3s ease-in-out infinite;
-  animation-delay: 0.7s, 1.8s;
-}
-
-.invitation-label {
-  font-size: clamp(18px, 5vw, 24px);
-  color: #AD1919;
-  opacity: 0;
-  animation: fadeUp 1s ease forwards, labelPulse 1.8s ease-in-out infinite;
-  animation-delay: 1.1s, 2s;
-}
-
-.link-button {
-  max-width: 402px;
-  width: 75vw;
-  height: 54vw;
-  max-height: 280px;
-  position: absolute;
-  top: 53%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  cursor: pointer;
-  z-index: 5;
-  background: transparent;
-  user-select: none;
-}
-
-.link-button::after {
+.greeting-container::before {
   content: "";
   position: absolute;
-  width: 75px;
-  height: 75px;
-  border-radius: 50%;
-  background: rgba(173, 25, 25, 0.18);
-  top: 48%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(1);
-  animation: sealPulse 1.6s ease-in-out infinite;
+  inset: 18px;
+  border: 1px solid rgba(173,25,25,.18);
+  border-radius: 26px;
   pointer-events: none;
 }
 
-.link-button:hover::after {
-  background: rgba(173, 25, 25, 0.3);
-  transform: translate(-50%, -50%) scale(1.15);
+.greeting-container::after {
+  content: "♡";
+  position: absolute;
+  right: 34px;
+  bottom: 20px;
+  font-size: 120px;
+  color: rgba(173,25,25,.06);
+  transform: rotate(-18deg);
+}
+
+.small-text {
+  color: rgba(173,25,25,.75);
+  font-size: clamp(16px, 4vw, 20px);
+  letter-spacing: 1px;
+  opacity: 0;
+  animation: fadeDown 1s ease forwards .2s;
+}
+
+.greeting-title {
+  font-size: clamp(70px, 14vw, 135px);
+  color: #AD1919;
+  line-height: .85;
+  text-align: center;
+  text-shadow: 0 8px 20px rgba(173,25,25,.12);
+  opacity: 0;
+  animation: fadeDown 1s ease forwards .35s;
+}
+
+.envelope-wrap {
+  position: relative;
+  width: min(64vw, 430px);
+  margin-top: 6px;
+}
+
+.invitation-mail {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 22px 24px rgba(173,25,25,.25));
+  opacity: 0;
+  animation:
+    envelopeEntrance 1s ease forwards .65s,
+    envelopeFloat 3s ease-in-out infinite 1.7s;
+}
+
+.invitation-label {
+  color: #AD1919;
+  font-size: clamp(18px, 5vw, 24px);
+  text-align: center;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 1s, labelPulse 1.8s ease-in-out infinite 2s;
+}
+
+.link-button {
+  width: 26%;
+  aspect-ratio: 1 / 1;
+  position: absolute;
+  top: 54%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.link-button::before,
+.link-button::after {
+  content: "";
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  background: rgba(173,25,25,.18);
+  animation: sealPulse 1.5s ease-in-out infinite;
+}
+
+.link-button::after {
+  inset: 20%;
+  background: rgba(255,255,255,.25);
+  animation-delay: .25s;
+}
+
+.link-button:hover {
+  transform: translate(-50%, -50%) scale(1.08);
 }
 
 .link-button:active {
-  transform: translate(-50%, -50%) scale(0.97);
+  transform: translate(-50%, -50%) scale(.96);
 }
 
-.music-toggle{
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  border: none;
-  background: white;
-  color: #AD1919;
-  font-size: 24px;
-  cursor: pointer;
-  z-index: 999;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  transition: 0.3s ease;
-  user-select: none;
+.floating-heart,
+.sparkle {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
 }
 
-.music-toggle:hover{
-  transform: scale(1.08);
+.floating-heart {
+  color: rgba(255,255,255,.22);
+  animation: floatHeart 8s ease-in-out infinite;
 }
+
+.heart-1 { top: 12%; left: 8%; font-size: 38px; }
+.heart-2 { top: 72%; left: 12%; font-size: 26px; animation-delay: 1s; }
+.heart-3 { top: 16%; right: 10%; font-size: 30px; animation-delay: 1.8s; }
+.heart-4 { bottom: 13%; right: 16%; font-size: 42px; animation-delay: .7s; }
+
+.sparkle {
+  color: rgba(255,255,255,.75);
+  animation: twinkle 2.3s ease-in-out infinite;
+}
+
+.sparkle-1 { top: 18%; left: 24%; font-size: 16px; }
+.sparkle-2 { top: 25%; right: 25%; font-size: 18px; animation-delay: .8s; }
+.sparkle-3 { bottom: 22%; left: 28%; font-size: 14px; animation-delay: 1.4s; }
 
 @keyframes containerEntrance {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    transform: translateY(20px) scale(.96);
   }
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(0) scale(1);
   }
 }
 
 @keyframes fadeDown {
   from {
     opacity: 0;
-    transform: translateY(-30px);
+    transform: translateY(-24px);
   }
   to {
     opacity: 1;
@@ -156,7 +205,7 @@
 @keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(25px);
+    transform: translateY(22px);
   }
   to {
     opacity: 1;
@@ -167,20 +216,20 @@
 @keyframes envelopeEntrance {
   from {
     opacity: 0;
-    transform: translateY(40px) scale(0.9);
+    transform: translateY(38px) scale(.9) rotate(-2deg);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0) scale(1) rotate(0);
   }
 }
 
 @keyframes envelopeFloat {
   0%, 100% {
-    transform: translateY(0);
+    transform: translateY(0) rotate(0);
   }
   50% {
-    transform: translateY(-12px);
+    transform: translateY(-12px) rotate(-1deg);
   }
 }
 
@@ -189,17 +238,17 @@
     transform: scale(1);
   }
   50% {
-    transform: scale(1.05);
+    transform: scale(1.045);
   }
 }
 
 @keyframes sealPulse {
   0% {
-    transform: translate(-50%, -50%) scale(0.85);
-    opacity: 0.7;
+    transform: scale(.75);
+    opacity: .75;
   }
   70% {
-    transform: translate(-50%, -50%) scale(1.35);
+    transform: scale(1.45);
     opacity: 0;
   }
   100% {
@@ -212,18 +261,43 @@
     transform: translateY(0) rotate(-8deg);
   }
   50% {
-    transform: translateY(-25px) rotate(8deg);
+    transform: translateY(-24px) rotate(8deg);
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: .25;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.55);
   }
 }
 
 @media (max-width: 480px) {
-  .greeting-container {
-    width: 92vw;
-    min-height: 88dvh;
+  .greeting-landing {
+    padding: 14px;
   }
 
-  .link-button::after {
-    width: 58px;
-    height: 58px;
+  .greeting-container {
+    width: 100%;
+    min-height: 90dvh;
+    border-radius: 28px;
+    gap: 12px;
+  }
+
+  .greeting-container::before {
+    inset: 12px;
+    border-radius: 22px;
+  }
+
+  .envelope-wrap {
+    width: 84vw;
+  }
+
+  .link-button {
+    width: 25%;
   }
 }

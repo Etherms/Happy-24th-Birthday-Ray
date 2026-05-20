@@ -4,42 +4,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday Ray!</title>
+
   <link rel="icon" type="image/png" href="./Assets/Icons/favicon.png">
-  <link rel="stylesheet" href="../css/happy-birthday.css">
   <link rel="stylesheet" href="../css/global.css">
-  
+  <link rel="stylesheet" href="../css/happy-birthday.css">
 </head>
 
 <body>
   <script>
-  if (sessionStorage.getItem("birthdayAccess") !== "granted") {
-    window.location.href = "../";
-  }
-</script>
+    if (sessionStorage.getItem("birthdayAccess") !== "granted") {
+      window.location.href = "../";
+    }
+  </script>
 
-  <!-- BACKGROUND -->
   <div class="background-image">
     <img src="../Assets/img/Global/background.png" alt="">
   </div>
 
-  <!-- FLOATING HEARTS -->
+  <div class="background-overlay"></div>
+
   <div class="hearts">
-    <span>♡</span>
-    <span>❤</span>
-    <span>♡</span>
-    <span>❤</span>
-    <span>♡</span>
-    <span>❤</span>
-    <span>♡</span>
-    <span>❤</span>
-    <span>♡</span>
-    <span>❤</span>
+    <span>♡</span><span>❤</span><span>♡</span><span>❤</span><span>♡</span>
+    <span>❤</span><span>♡</span><span>❤</span><span>♡</span><span>❤</span>
   </div>
 
-  <!-- CONTENT -->
-  <div class="greeting-container">
+  <div class="sparkles">
+    <span>✦</span>
+    <span>✧</span>
+    <span>✦</span>
+    <span>✧</span>
+  </div>
 
-    <div class="top-container">
+  <main class="greeting-container">
+    <div class="birthday-card">
 
       <div class="date italianno-regular">
         <p>05-24-26</p>
@@ -50,18 +47,14 @@
       </h1>
 
       <p class="small-message gideon-roman-regular">
-        I hope this little gift will make you happy
+        I hope this little gift makes you smile today ♡
       </p>
 
-    </div>
-
-    <div class="bottom-container">
-      <a href="./gift-page.html" class="link-page">
-        Click Here
+      <a href="./gift-page.html" class="link-page gideon-roman-regular">
+        Open Your Gift
       </a>
+
     </div>
-
-  </div>
-
+  </main>
 </body>
 </html>
