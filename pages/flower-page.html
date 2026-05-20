@@ -4,24 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Happy Birthday Ray!</title>
+
+  <link rel="stylesheet" href="../css/flowers.css">
+  <link rel="stylesheet" href="../css/global.css">
   <link rel="icon" type="image/png" href="./Assets/Icons/favicon.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="../css/flowers.css">
 
   <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
-
-
 </head>
 
 <body>
-        <script>
-  if (sessionStorage.getItem("birthdayAccess") !== "granted") {
-    window.location.href = "../";
-  }
-</script>
-
-  <!-- floating hearts -->
+  <script>
+    if (sessionStorage.getItem("birthdayAccess") !== "granted") {
+      window.location.href = "../";
+    }
+  </script>
 
   <div class="heart">♡</div>
   <div class="heart">♡</div>
@@ -31,88 +30,222 @@
 
   <main class="page">
 
-    <h1 class="title">
-      My Favorite Girl
-    </h1>
+    <h1 class="title">My Only Girl</h1>
 
     <p class="subtitle">
       A little gallery of you ♡
     </p>
 
+    <div class="gallery-actions">
+      <button class="gallery-chip active" data-filter="all">All</button>
+      <button class="gallery-chip" data-filter="cute">Cute</button>
+      <button class="gallery-chip" data-filter="pretty">Pretty</button>
+      <button class="gallery-chip" data-filter="fav">Favorites</button>
+    </div>
+
+    <button class="shuffle-btn" id="shuffleBtn">
+      Shuffle memories ♡
+    </button>
+
     <section class="collage">
 
-      <div class="photo-card tall" style="--rotate:-4deg; --delay:.1s;">
+      <div class="photo-card tall" data-category="cute" style="--rotate:-4deg; --delay:.1s;">
         <div class="sparkle"></div>
         <div class="sparkle"></div>
-
-        <img src="../Assets/img/1.webp" alt="photo">
+        <img src="../Assets/img/Content/1.jpeg" alt="photo">
+        <button class="favorite-btn" type="button">♡</button>
+        <span class="tap-badge">Tap to view ♡</span>
       </div>
 
-      <div class="photo-card tall" style="--rotate:4deg; --delay:.4s;">
+      <div class="photo-card" data-category="pretty" style="--rotate:4deg; --delay:.2s;">
         <div class="sparkle"></div>
         <div class="sparkle"></div>
-
-        <img src="../Assets/img/2.webp" alt="photo">
+        <img src="../Assets/img/Content/2.jpg" alt="photo">
+        <button class="favorite-btn" type="button">♡</button>
+        <span class="tap-badge">Tap to view ♡</span>
       </div>
 
-      <div class="photo-card" style="--rotate:3deg; --delay:.2s;">
+      <div class="photo-card wide" data-category="cute" style="--rotate:-1deg; --delay:.5s;">
         <div class="sparkle"></div>
         <div class="sparkle"></div>
-
-        <img src="../Assets/img/4.webp" alt="photo">
-
+        <img src="../Assets/img/Content/5.jpg" alt="photo">
+        <button class="favorite-btn" type="button">♡</button>
+        <span class="tap-badge">Tap to view ♡</span>
       </div>
 
-      <div class="photo-card" style="--rotate:-2deg; --delay:.3s;">
+      <div class="photo-card" data-category="pretty" style="--rotate:3deg; --delay:.6s;">
         <div class="sparkle"></div>
         <div class="sparkle"></div>
-
-        <img src="../Assets/img/5.webp" alt="photo">
+        <img src="../Assets/img/Content/6.jpg" alt="photo">
+        <button class="favorite-btn" type="button">♡</button>
+        <span class="tap-badge">Tap to view ♡</span>
       </div>
 
-      
-
-      <div class="photo-card wide" style="--rotate:-1deg; --delay:.5s;">
+      <div class="photo-card" data-category="cute" style="--rotate:-2deg; --delay:.7s;">
         <div class="sparkle"></div>
         <div class="sparkle"></div>
-
-        <img src="../Assets/img/6.webp" alt="photo">
+        <img src="../Assets/img/Content/7.jpg" alt="photo">
+        <button class="favorite-btn" type="button">♡</button>
+        <span class="tap-badge">Tap to view ♡</span>
       </div>
 
-      <div class="photo-card" style="--rotate:2deg; --delay:.6s;">
+      <div class="photo-card tall" data-category="pretty" style="--rotate:2deg; --delay:.8s;">
         <div class="sparkle"></div>
         <div class="sparkle"></div>
-
-        <img src="../Assets/img/8.webp" alt="photo">
+        <img src="../Assets/img/Content/8.jpg" alt="photo">
+        <button class="favorite-btn" type="button">♡</button>
+        <span class="tap-badge">Tap to view ♡</span>
       </div>
 
-      <div class="photo-card" style="--rotate:-3deg; --delay:.7s;">
+      <div class="photo-card" data-category="cute" style="--rotate:-3deg; --delay:.9s;">
         <div class="sparkle"></div>
         <div class="sparkle"></div>
-
-        <img src="../Assets/img/1.jpg" alt="photo">
+        <img src="../Assets/img/Content/10.jpg" alt="photo">
+        <button class="favorite-btn" type="button">♡</button>
+        <span class="tap-badge">Tap to view ♡</span>
       </div>
 
-      <div class="photo-card tall" style="--rotate:2deg; --delay:.8s;">
+      <div class="photo-card wide" data-category="pretty" style="--rotate:2deg; --delay:1s;">
         <div class="sparkle"></div>
         <div class="sparkle"></div>
-
-        <img src="https://picsum.photos/seed/girl8/500/700" alt="photo">
+        <img src="../Assets/img/Content/9.jpg" alt="photo">
+        <button class="favorite-btn" type="button">♡</button>
+        <span class="tap-badge">Tap to view ♡</span>
       </div>
 
-      <div class="photo-card" style="--rotate:-2deg; --delay:.9s;">
-        <div class="sparkle"></div>
-        <div class="sparkle"></div>
+      <!-- SECOND HALF -->
 
-        <img src="https://picsum.photos/seed/girl9/500/600" alt="photo">
+      <div class="photo-card" data-category="cute" style="--rotate:-2deg; --delay:1.1s;">
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <img src="../Assets/img/Content/11.jpg" alt="photo">
+        <button class="favorite-btn" type="button">♡</button>
+        <span class="tap-badge">Tap to view ♡</span>
       </div>
 
-      <div class="photo-card wide" style="--rotate:2deg; --delay:1s;">
+      <div class="photo-card tall" data-category="pretty" style="--rotate:3deg; --delay:1.2s;">
         <div class="sparkle"></div>
         <div class="sparkle"></div>
-
-        <img src="https://picsum.photos/seed/girl10/800/500" alt="photo">
+        <img src="../Assets/img/Content/12.jpg" alt="photo">
+        <button class="favorite-btn" type="button">♡</button>
+        <span class="tap-badge">Tap to view ♡</span>
       </div>
+
+      <div class="photo-card" data-category="cute" style="--rotate:2deg; --delay:1.4s;">
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <img src="../Assets/img/Content/14.jpg" alt="photo">
+        <button class="favorite-btn" type="button">♡</button>
+        <span class="tap-badge">Tap to view ♡</span>
+      </div>
+
+      <div class="photo-card" data-category="pretty" style="--rotate:-3deg; --delay:1.5s;">
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <img src="../Assets/img/Content/15.jpg" alt="photo">
+        <button class="favorite-btn" type="button">♡</button>
+        <span class="tap-badge">Tap to view ♡</span>
+      </div>
+
+      <div class="photo-card tall" data-category="cute" style="--rotate:2deg; --delay:1.6s;">
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <img src="../Assets/img/Content/16.jpg" alt="photo">
+        <button class="favorite-btn" type="button">♡</button>
+        <span class="tap-badge">Tap to view ♡</span>
+      </div>
+
+      <div class="photo-card" data-category="cute" style="--rotate:-2deg; --delay:2.7s;">
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <img src="../Assets/img/Content/28.jpg" alt="photo">
+        <button class="favorite-btn" type="button">♡</button>
+        <span class="tap-badge">Tap to view ♡</span>
+      </div>
+
+      <div class="photo-card wide" data-category="pretty" style="--rotate:-2deg; --delay:1.7s;">
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <img src="../Assets/img/Content/17.jpg" alt="photo">
+        <button class="favorite-btn" type="button">♡</button>
+        <span class="tap-badge">Tap to view ♡</span>
+      </div>
+
+      <div class="photo-card" data-category="cute" style="--rotate:3deg; --delay:1.8s;">
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <img src="../Assets/img/Content/18.jpg" alt="photo">
+        <button class="favorite-btn" type="button">♡</button>
+        <span class="tap-badge">Tap to view ♡</span>
+      </div>
+
+      <div class="photo-card" data-category="pretty" style="--rotate:-2deg; --delay:1.9s;">
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <img src="../Assets/img/Content/19.jpg" alt="photo">
+        <button class="favorite-btn" type="button">♡</button>
+        <span class="tap-badge">Tap to view ♡</span>
+      </div>
+
+      <div class="photo-card wide" data-category="cute" style="--rotate:1deg; --delay:2s;">
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <img src="../Assets/img/Content/20.jpg" alt="photo">
+        <button class="favorite-btn" type="button">♡</button>
+        <span class="tap-badge">Tap to view ♡</span>
+      </div>
+
+      <!-- LAST SECTION -->
+
+      <div class="photo-card tall" data-category="pretty" style="--rotate:-2deg; --delay:2.1s;">
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <img src="../Assets/img/Content/21.jpg" alt="photo">
+        <button class="favorite-btn" type="button">♡</button>
+        <span class="tap-badge">Tap to view ♡</span>
+      </div>
+
+      <div class="photo-card" data-category="cute" style="--rotate:3deg; --delay:2.2s;">
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <img src="../Assets/img/Content/22.jpg" alt="photo">
+        <button class="favorite-btn" type="button">♡</button>
+        <span class="tap-badge">Tap to view ♡</span>
+      </div>
+
+      <div class="photo-card wide" data-category="pretty" style="--rotate:-1deg; --delay:2.3s;">
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <img src="../Assets/img/Content/23.jpg" alt="photo">
+        <button class="favorite-btn" type="button">♡</button>
+        <span class="tap-badge">Tap to view ♡</span>
+      </div>
+
+      <div class="photo-card" data-category="cute" style="--rotate:2deg; --delay:2.4s;">
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <img src="../Assets/img/Content/24.jpg" alt="photo">
+        <button class="favorite-btn" type="button">♡</button>
+        <span class="tap-badge">Tap to view ♡</span>
+      </div>
+
+      <div class="photo-card tall" data-category="pretty" style="--rotate:-3deg; --delay:2.5s;">
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <img src="../Assets/img/Content/25.jpg" alt="photo">
+        <button class="favorite-btn" type="button">♡</button>
+        <span class="tap-badge">Tap to view ♡</span>
+      </div>
+
+      <div class="photo-card wide" data-category="cute" style="--rotate:2deg; --delay:2.6s;">
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <img src="../Assets/img/Content/26.jpg" alt="photo">
+        <button class="favorite-btn" type="button">♡</button>
+        <span class="tap-badge">Tap to view ♡</span>
+      </div>
+
+
 
     </section>
 
@@ -122,5 +255,22 @@
 
   </main>
 
+  <div class="photo-lightbox" id="photoLightbox">
+
+    <button class="lightbox-close" type="button">×</button>
+
+    <button class="lightbox-arrow lightbox-prev" type="button">‹</button>
+
+    <div class="lightbox-card">
+      <img id="lightboxImg" src="" alt="preview">
+      <p class="lightbox-caption" id="lightboxCaption"></p>
+      <p class="lightbox-count"></p>
+    </div>
+
+    <button class="lightbox-arrow lightbox-next" type="button">›</button>
+
+  </div>
+
+  <script defer src="../js/photocard.js"></script>
 </body>
 </html>
