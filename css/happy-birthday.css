@@ -141,7 +141,7 @@
 }
 
 .happy-birthday-text {
-  font-size: clamp(68px, 14vw, 145px);
+  font-size: 75px;
   color: #ffffff;
   line-height: 90px;
   max-width: 900px;
