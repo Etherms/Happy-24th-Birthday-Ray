@@ -26,7 +26,21 @@ const captions = [
   "Soft, sweet, and beautiful.",
   "This feels like you.",
   "Another reason to smile.",
-  "My favorite person."
+  "My favorite person.",
+  "A moment worth keeping.",
+  "You look so lovely here.",
+  "This photo feels warm.",
+  "A little piece of happiness.",
+  "My favorite smile.",
+  "You are so beautiful.",
+  "A memory I love.",
+  "This one is special.",
+  "Always my favorite person.",
+  "A soft little memory.",
+  "You make my heart happy.",
+  "This picture is so you.",
+  "A sweet moment forever.",
+  "My only girl."
 ];
 
 cards.forEach((card, index) => {
@@ -36,9 +50,12 @@ cards.forEach((card, index) => {
   img.dataset.caption = captions[index] || "A memory I love.";
 
   card.addEventListener("click", () => {
-    visibleCards = cards.filter(c => !c.classList.contains("hide"));
+    visibleCards = cards.filter(card => !card.classList.contains("hide"));
     currentIndex = visibleCards.indexOf(card);
-    openLightbox();
+
+    if (currentIndex >= 0) {
+      openLightbox();
+    }
   });
 
   card.addEventListener("touchstart", () => {
@@ -64,11 +81,20 @@ cards.forEach((card, index) => {
     setTimeout(() => {
       card.classList.remove("liked");
     }, 650);
+
+    const activeFilter = document.querySelector(".gallery-chip.active")?.dataset.filter;
+
+    if (activeFilter === "fav") {
+      applyFilter("fav");
+    }
   });
 });
 
 function openLightbox() {
   const card = visibleCards[currentIndex];
+
+  if (!card) return;
+
   const img = card.querySelector("img");
 
   lightboxImg.src = img.src;
@@ -85,13 +111,39 @@ function closeLightbox() {
 }
 
 function showNext() {
+  if (!visibleCards.length) return;
   currentIndex = (currentIndex + 1) % visibleCards.length;
   openLightbox();
 }
 
 function showPrev() {
+  if (!visibleCards.length) return;
   currentIndex = (currentIndex - 1 + visibleCards.length) % visibleCards.length;
   openLightbox();
+}
+
+function applyFilter(filter) {
+
+  cards.forEach(card => {
+
+    if (filter === "all") {
+
+      card.classList.remove("hide");
+
+    } else {
+
+      card.classList.toggle(
+        "hide",
+        !card.dataset.category.includes(filter)
+      );
+
+    }
+
+  });
+
+  visibleCards = cards.filter(
+    card => !card.classList.contains("hide")
+  );
 }
 
 closeBtn.addEventListener("click", closeLightbox);
@@ -122,33 +174,20 @@ chips.forEach(chip => {
     chips.forEach(c => c.classList.remove("active"));
     chip.classList.add("active");
 
-    const filter = chip.dataset.filter;
-
-    cards.forEach(card => {
-      const fav = card.querySelector(".favorite-btn").classList.contains("active");
-
-      if (filter === "all") {
-        card.classList.remove("hide");
-      } else if (filter === "fav") {
-        card.classList.toggle("hide", !fav);
-      } else {
-        card.classList.toggle("hide", card.dataset.category !== filter);
-      }
-    });
+    applyFilter(chip.dataset.filter);
   });
 });
 
 shuffleBtn.addEventListener("click", () => {
-  const shuffled = [...cards].sort(() => Math.random() - 0.5);
+  const visible = cards.filter(card => !card.classList.contains("hide"));
+  const hidden = cards.filter(card => card.classList.contains("hide"));
+  const shuffled = [...visible].sort(() => Math.random() - 0.5);
 
-  shuffled.forEach(card => {
+  [...shuffled, ...hidden].forEach(card => {
     collage.appendChild(card);
-    card.style.animation = "none";
-
-    requestAnimationFrame(() => {
-      card.style.animation = "";
-    });
   });
+
+  visibleCards = shuffled;
 });
 
 document.addEventListener("keydown", e => {
