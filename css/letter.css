@@ -1,324 +1,603 @@
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-html{
-    scroll-behavior:smooth;
-}
-html, body{
-    width:100%;
-    max-width:100%;
-    overflow-x:hidden;
+:root{
+  --text-scale: 1;
 }
 
-body{
-    width:100%;
-    min-height:100dvh;
-    background:#AD1919;
-    display:flex;
-    justify-content:center;
-    padding:40px 20px 80px;
-    overflow-x:hidden;
-    font-family:"Cormorant Garamond", serif;
-    position:relative;
+html {
+  scroll-behavior: smooth;
 }
 
-/* floating particles */
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  width: 100%;
+  min-height: 100dvh;
+
+  background:
+    radial-gradient(circle at 20% 10%, rgba(255,255,255,.20), transparent 28%),
+    radial-gradient(circle at 85% 90%, rgba(255,210,220,.22), transparent 30%),
+    linear-gradient(135deg, #680707 0%, #AD1919 48%, #d34155 100%);
+
+  display: flex;
+  justify-content: center;
+
+  padding: 34px 16px 90px;
+
+  overflow-x: hidden;
+
+  font-family: "Cormorant Garamond", serif;
+
+  position: relative;
+}
+
+/* ========================================
+   BACKGROUND GLOW
+======================================== */
+
+body::before,
+body::after{
+  content:"";
+  position:fixed;
+  border-radius:50%;
+  filter:blur(90px);
+  pointer-events:none;
+  z-index:0;
+  opacity:.4;
+}
+
+body::before{
+  width:260px;
+  height:260px;
+  background:#ffb6c6;
+  top:-100px;
+  left:-90px;
+}
+
+body::after{
+  width:320px;
+  height:320px;
+  background:#fff1f3;
+  right:-120px;
+  bottom:-120px;
+}
+
+/* ========================================
+   PARTICLES
+======================================== */
 
 .particle{
-    position:fixed;
-    width:10px;
-    height:10px;
-    background:rgba(255,255,255,0.12);
-    border-radius:50%;
-    animation:floatParticle linear infinite;
-    z-index:0;
+  position:fixed;
+  width:10px;
+  height:10px;
+  background:rgba(255,255,255,.14);
+  border-radius:50%;
+  animation:floatParticle linear infinite;
+  z-index:0;
 }
 
 .particle:nth-child(1){
-    left:10%;
-    animation-duration:8s;
+  left:10%;
+  animation-duration:8s;
 }
 
 .particle:nth-child(2){
-    left:25%;
-    width:6px;
-    height:6px;
-    animation-duration:11s;
-    animation-delay:2s;
+  left:25%;
+  width:6px;
+  height:6px;
+  animation-duration:11s;
+  animation-delay:2s;
 }
 
 .particle:nth-child(3){
-    left:50%;
-    width:14px;
-    height:14px;
-    animation-duration:10s;
-    animation-delay:1s;
+  left:50%;
+  width:14px;
+  height:14px;
+  animation-duration:10s;
+  animation-delay:1s;
 }
 
 .particle:nth-child(4){
-    left:70%;
-    width:7px;
-    height:7px;
-    animation-duration:9s;
-    animation-delay:3s;
+  left:70%;
+  width:7px;
+  height:7px;
+  animation-duration:9s;
+  animation-delay:3s;
 }
 
 .particle:nth-child(5){
-    left:88%;
-    width:12px;
-    height:12px;
-    animation-duration:13s;
-    animation-delay:0s;
+  left:88%;
+  width:12px;
+  height:12px;
+  animation-duration:13s;
 }
 
-@keyframes floatParticle{
-    from{
-    transform:translateY(110vh);
-    opacity:0;
-    }
-
-    20%{
-    opacity:1;
-    }
-
-    to{
-    transform:translateY(-120px);
-    opacity:0;
-    }
-}
+/* ========================================
+   SCENE
+======================================== */
 
 .scene{
-    width:100%;
-    max-width:430px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    position:relative;
-    z-index:2;
-    overflow:hidden;
+  width:100%;
+  max-width:680px;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+
+  position:relative;
+  z-index:2;
 }
 
-/* crumpled paper */
+/* ========================================
+   TOOLS
+======================================== */
+
+.letter-tools{
+  position:sticky;
+  top:14px;
+
+  width:100%;
+
+  display:flex;
+  justify-content:center;
+  gap:10px;
+
+  margin-bottom:18px;
+
+  z-index:10;
+}
+
+.letter-tools button{
+  border:none;
+  outline:none;
+
+  background:rgba(255,255,255,.16);
+
+  backdrop-filter:blur(10px);
+
+  color:white;
+
+  min-width:58px;
+  height:42px;
+
+  border-radius:999px;
+
+  font-family:"Cormorant Garamond", serif;
+  font-size:18px;
+  font-weight:600;
+
+  cursor:pointer;
+
+  border:1px solid rgba(255,255,255,.22);
+
+  transition:.3s ease;
+}
+
+.letter-tools button:hover{
+  background:rgba(255,255,255,.28);
+  transform:translateY(-2px);
+}
+
+/* ========================================
+   PROGRESS BAR
+======================================== */
+
+.reading-progress{
+  position:fixed;
+  top:0;
+  left:0;
+
+  width:100%;
+  height:5px;
+
+  background:rgba(255,255,255,.08);
+
+  z-index:20;
+}
+
+.reading-progress span{
+  display:block;
+  width:0%;
+  height:100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      #fff,
+      #ffd8e0
+    );
+
+  transition:width .15s linear;
+}
+
+/* ========================================
+   CRUMPLED PAPER
+======================================== */
 
 .crumpled-paper{
-    position:absolute;
-    top:120px;
-    width:150px;
-    height:150px;
-    background:#fff;
-    z-index:4;
+  position:absolute;
+  top:110px;
 
-    box-shadow:
-    inset -18px -18px 20px rgba(0,0,0,0.12),
-    inset 15px 15px 18px rgba(255,255,255,0.9),
-    0 20px 45px rgba(0,0,0,0.25);
+  width:150px;
+  height:150px;
 
-    transform:scale(1) rotate(-12deg);
+  background:#fff;
 
-    animation:crumpleMove 1.9s ease forwards;
+  z-index:4;
+
+  border-radius:14px;
+
+  box-shadow:
+    inset -18px -18px 20px rgba(0,0,0,.12),
+    inset 15px 15px 18px rgba(255,255,255,.9),
+    0 20px 45px rgba(0,0,0,.25);
+
+  transform:scale(1) rotate(-12deg);
+
+  animation:crumpleMove 1.9s ease forwards;
 }
 
 .crumpled-paper::before,
 .crumpled-paper::after{
-    content:"";
-    position:absolute;
-    inset:18px;
+  content:"";
+  position:absolute;
+  inset:18px;
 
-    background:
+  background:
     linear-gradient(
-    45deg,
-    transparent 30%,
-    rgba(0,0,0,0.08) 31%,
-    transparent 45%
+      45deg,
+      transparent 30%,
+      rgba(0,0,0,.08) 31%,
+      transparent 45%
     ),
     linear-gradient(
-    -45deg,
-    transparent 35%,
-    rgba(0,0,0,0.06) 36%,
-    transparent 52%
+      -45deg,
+      transparent 35%,
+      rgba(0,0,0,.06) 36%,
+      transparent 52%
     );
 }
 
 .crumpled-paper::after{
-    inset:32px;
-    transform:rotate(60deg);
+  inset:32px;
+  transform:rotate(60deg);
 }
 
-/* LETTER */
+/* ========================================
+   LETTER
+======================================== */
 
 .letter{
-    width:100%;
-    max-width:380px;
-    background:#fffdf7;
-    position:relative;
-    z-index:2;
+  width:100%;
+  max-width:620px;
 
-    padding:42px 28px;
+  background:
+    linear-gradient(
+      180deg,
+      #fffdf9 0%,
+      #fff9fa 100%
+    );
 
-    opacity:0;
-    transform:scale(0.3);
+  position:relative;
+  z-index:2;
 
-    box-shadow:
-    0 25px 60px rgba(0,0,0,0.22);
+  border-radius:28px;
 
-    animation:
+  padding:54px 34px;
+
+  opacity:0;
+  transform:scale(.3);
+
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.7);
+
+  overflow:hidden;
+
+  animation:
     letterReveal 1.4s ease 1s forwards;
+}
+
+/* elegant border */
+
+.letter::after{
+  content:"";
+  position:absolute;
+  inset:16px;
+
+  border:1px solid rgba(173,25,25,.14);
+  border-radius:18px;
+
+  pointer-events:none;
 }
 
 /* paper lines */
 
 .letter::before{
-    content:"";
-    position:absolute;
-    inset:0;
+  content:"";
+  position:absolute;
+  inset:0;
 
-    background:
+  background:
     repeating-linear-gradient(
-    to bottom,
-    transparent 0px,
-    transparent 33px,
-    rgba(173,25,25,0.10) 34px
+      to bottom,
+      transparent 0px,
+      transparent 37px,
+      rgba(173,25,25,.08) 38px
     );
 
-    pointer-events:none;
+  pointer-events:none;
 }
 
 .letter-content{
-    position:relative;
-    z-index:2;
-    color:#7A1212;
+  position:relative;
+  z-index:2;
+
+  color:#7A1212;
 }
 
+/* ========================================
+   LETTER CONTENT
+======================================== */
+
 .letter-content h1{
-    font-family:"Parisienne", cursive;
-    font-size:52px;
-    line-height:1;
-    margin-bottom:26px;
-    text-align:center;
-    font-weight:400;
+  font-family:"Parisienne", cursive;
+
+  font-size:clamp(58px, 10vw, 76px);
+
+  line-height:.9;
+
+  margin-bottom:30px;
+
+  text-align:center;
+
+  font-weight:400;
+
+  color:#b11f3b;
+
+  text-shadow:
+    0 4px 14px rgba(177,31,59,.12);
 }
 
 .letter-content p{
-    font-size:24px;
-    line-height:1.55;
-    margin-bottom:28px;
-    font-weight:500;
+  font-size:calc(25px * var(--text-scale));
+
+  line-height:1.72;
+
+  margin-bottom:30px;
+
+  font-weight:500;
+
+  color:#7A1212;
+
+  animation:fadeParagraph .6s ease both;
+}
+
+/* drop cap */
+
+.letter-content p:first-of-type::first-letter{
+  font-size:72px;
+  float:left;
+  line-height:.85;
+  padding-right:10px;
+  color:#c53a59;
+  font-family:"Parisienne", cursive;
 }
 
 .signature{
-    margin-top:40px;
-    text-align:right;
-    font-family:"Parisienne", cursive;
-    font-size:42px;
-    line-height:1.1;
+  margin-top:52px;
+
+  text-align:right;
+
+  font-family:"Parisienne", cursive;
+
+  font-size:56px;
+
+  line-height:1.1;
+
+  color:#b11f3b;
 }
 
-/* BACK BUTTON */
+/* ========================================
+   BACK BUTTON
+======================================== */
 
 .back-link{
-    margin-top:28px;
-    text-decoration:none;
-    color:white;
-    font-size:22px;
-    font-weight:600;
-    border-bottom:2px solid rgba(255,255,255,0.5);
-    padding-bottom:4px;
-    transition:0.3s ease;
+  margin-top:30px;
+
+  text-decoration:none;
+
+  color:white;
+
+  font-size:20px;
+  font-weight:600;
+
+  padding:12px 22px;
+
+  border-radius:999px;
+
+  background:rgba(255,255,255,.12);
+
+  backdrop-filter:blur(10px);
+
+  border:1px solid rgba(255,255,255,.22);
+
+  transition:.3s ease;
 }
 
 .back-link:hover{
-    opacity:0.7;
-    transform:translateY(-2px);
+  background:rgba(255,255,255,.22);
+  transform:translateY(-3px);
 }
 
-/* ANIMATIONS */
+/* ========================================
+   ANIMATIONS
+======================================== */
+
+@keyframes floatParticle{
+  from{
+    transform:translateY(110vh);
+    opacity:0;
+  }
+
+  20%{
+    opacity:1;
+  }
+
+  to{
+    transform:translateY(-120px);
+    opacity:0;
+  }
+}
 
 @keyframes crumpleMove{
-
-    0%{
+  0%{
     opacity:1;
     transform:
-    scale(1)
-    rotate(-12deg);
-    }
+      scale(1)
+      rotate(-12deg);
+  }
 
-    45%{
+  45%{
     opacity:1;
     transform:
-    scale(1.5)
-    rotate(12deg);
-    }
+      scale(1.5)
+      rotate(12deg);
+  }
 
-    100%{
+  100%{
     opacity:0;
     transform:
-    scale(4.5)
-    rotate(0deg);
-    }
+      scale(4.5)
+      rotate(0deg);
+  }
 }
 
 @keyframes letterReveal{
-
-    0%{
+  0%{
     opacity:0;
+
     transform:
-    scale(0.3)
-    rotate(10deg);
+      scale(.3)
+      rotate(10deg);
+
     filter:blur(5px);
-    }
+  }
 
-    60%{
+  60%{
     opacity:1;
+
     transform:
-    scale(1.04)
-    rotate(-2deg);
+      scale(1.03)
+      rotate(-1deg);
+
     filter:blur(0);
-    }
+  }
 
-    100%{
+  100%{
     opacity:1;
+
     transform:
-    scale(1)
-    rotate(0deg);
-    }
+      scale(1)
+      rotate(0deg);
+  }
 }
 
-/* MOBILE */
+@keyframes fadeParagraph{
+  from{
+    opacity:0;
+    transform:translateY(12px);
+  }
 
-@media(max-width:480px){
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
 
-    body{
-    padding:30px 14px 70px;
-    }
+/* ========================================
+   MOBILE
+======================================== */
 
-    .letter{
+@media(max-width:768px){
+
+  body{
+    padding:22px 12px 80px;
+  }
+
+  .scene{
+    max-width:100%;
+  }
+
+  .letter{
+    padding:42px 22px;
+    border-radius:24px;
+  }
+
+  .letter-content h1{
+    font-size:58px;
+    margin-bottom:24px;
+  }
+
+  .letter-content p{
+    font-size:calc(20px * var(--text-scale));
+    line-height:1.72;
+    margin-bottom:26px;
+  }
+
+  .letter-content p:first-of-type::first-letter{
+    font-size:58px;
+  }
+
+  .signature{
+    font-size:46px;
+  }
+
+  .crumpled-paper{
+    width:120px;
+    height:120px;
+  }
+
+  .letter-tools{
+    gap:8px;
+  }
+
+  .letter-tools button{
+    min-width:54px;
+    height:40px;
+    font-size:17px;
+  }
+
+  .back-link{
     width:100%;
-    padding:36px 22px;
-    }
+    text-align:center;
+  }
+}
 
-    .letter-content h1{
-    font-size:44px;
-    }
+@media(max-width:380px){
 
-    .letter-content p{
-    font-size:21px;
-    line-height:1.5;
-    }
+  .letter{
+    padding:36px 18px;
+  }
 
-    .signature{
-    font-size:38px;
-    }
+  .letter-content h1{
+    font-size:52px;
+  }
 
-    .back-link{
-    font-size:20px;
-    }
+  .letter-content p{
+    font-size:calc(18px * var(--text-scale));
+  }
 
-    .crumpled-paper{
-    width:130px;
-    height:130px;
-    }
+  .signature{
+    font-size:40px;
+  }
 }

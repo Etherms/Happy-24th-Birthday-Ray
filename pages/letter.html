@@ -13,7 +13,7 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Parisienne&display=swap" rel="stylesheet">
 
-
+<script defer src="../js/letter.js"></script>
 </head>
 
 <body>
@@ -33,6 +33,16 @@
   <main class="scene">
 
     <!-- crumpled paper -->
+     
+    <div class="letter-tools">
+      <button type="button" id="decreaseText">A-</button>
+      <button type="button" id="increaseText">A+</button>
+      <button type="button" id="scrollBottom">Read ↓</button>
+    </div>
+
+    <div class="reading-progress">
+      <span id="readingProgress"></span>
+    </div>
 
     <div class="crumpled-paper"></div>
 
