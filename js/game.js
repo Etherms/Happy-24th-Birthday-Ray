@@ -34,7 +34,123 @@ let moveRight = false;
 
 const GOAL_SCORE = 5242;
 
-bestText.textContent = bestScore;
+bestText.textContent = bestScore
+
+
+const soundToggle = document.getElementById("soundToggle");
+
+let audioCtx;
+let musicTimer;
+let soundEnabled = localStorage.getItem("cakeJumpSound") !== "off";
+
+function initAudio() {
+    if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+
+    if (audioCtx.state === "suspended") {
+        audioCtx.resume();
+    }
+
+    updateSoundButton();
+}
+
+function updateSoundButton() {
+    if (soundToggle) {
+        soundToggle.textContent = soundEnabled ? "♪ On" : "♪ Off";
+    }
+}
+
+function playTone(freq, duration = 0.15, type = "sine", volume = 0.08) {
+    if (!soundEnabled || !audioCtx) return;
+
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.type = type;
+    osc.frequency.value = freq;
+
+    gain.gain.setValueAtTime(0, audioCtx.currentTime);
+    gain.gain.linearRampToValueAtTime(volume, audioCtx.currentTime + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc.start();
+    osc.stop(audioCtx.currentTime + duration);
+}
+
+function playBounceSound() {
+    playTone(660, 0.12, "sine", 0.07);
+    setTimeout(() => playTone(880, 0.08, "triangle", 0.045), 40);
+}
+
+function playClickSound() {
+    playTone(520, 0.08, "triangle", 0.05);
+}
+
+function playFallSound() {
+    playTone(220, 0.22, "sawtooth", 0.045);
+    setTimeout(() => playTone(160, 0.28, "sine", 0.04), 110);
+}
+
+function playWinSound() {
+    const notes = [523, 659, 784, 1046, 1318];
+    notes.forEach((note, i) => {
+        setTimeout(() => playTone(note, 0.18, "triangle", 0.075), i * 120);
+    });
+}
+
+function startCuteMusic() {
+    if (!soundEnabled || !audioCtx || musicTimer) return;
+
+    const melody = [
+        392, 523, 587, 659,
+        587, 523, 440, 523,
+        392, 523, 659, 784,
+        659, 587, 523, 440
+    ];
+
+    let index = 0;
+
+    musicTimer = setInterval(() => {
+        if (!soundEnabled || !gameRunning) return;
+
+        playTone(melody[index], 0.22, "sine", 0.025);
+
+        if (index % 4 === 0) {
+            playTone(melody[index] / 2, 0.35, "triangle", 0.018);
+        }
+
+        index = (index + 1) % melody.length;
+    }, 320);
+}
+
+function stopCuteMusic() {
+    clearInterval(musicTimer);
+    musicTimer = null;
+}
+
+if (soundToggle) {
+    soundToggle.addEventListener("click", e => {
+        e.stopPropagation();
+        initAudio();
+
+        soundEnabled = !soundEnabled;
+        localStorage.setItem("cakeJumpSound", soundEnabled ? "on" : "off");
+        updateSoundButton();
+
+        if (soundEnabled && gameRunning) {
+            startCuteMusic();
+            playClickSound();
+        } else {
+            stopCuteMusic();
+        }
+    });
+
+    updateSoundButton();
+};
 
 function resizeCanvas() {
     dpr = window.devicePixelRatio || 1;
@@ -109,17 +225,27 @@ function createPlatform(y) {
 }
 
 function startGame() {
+    initAudio();
+    playClickSound();
+
     resizeCanvas();
     resetGame();
     startScreen.style.display = "none";
     gameOver.style.display = "none";
     secretMessage.style.display = "none";
     gameRunning = true;
+
+    stopCuteMusic();
+    startCuteMusic();
+
     requestAnimationFrame(gameLoop);
 }
 
 function endGame() {
     gameRunning = false;
+    stopCuteMusic();
+    playFallSound();
+
     finalBest.textContent = bestScore;
     gameOver.style.display = "flex";
 }
@@ -127,10 +253,12 @@ function endGame() {
 function unlockSecret() {
     gameRunning = false;
     unlocked = true;
+    stopCuteMusic();
+
     secretMessage.style.display = "flex";
     createConfetti();
+    playWinSound();
 }
-
 function update() {
     const difficulty = Math.min(score / GOAL_SCORE, 1);
 
@@ -175,6 +303,7 @@ function update() {
         ) {
         player.vy = -13.2;
         addBounceParticles(player.x, platform.y);
+        playBounceSound();
         }
     });
     }

@@ -180,6 +180,16 @@ button,
     animation: fallConfetti 3s linear forwards;
 }
 
+.sound-toggle {
+    pointer-events: auto;
+    background: rgba(255,255,255,0.18);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.35);
+    padding: 10px 14px;
+    font-size: 18px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.18);
+}
+
 @keyframes fallConfetti {
     to {
     transform: translateY(110vh) rotate(720deg);
