@@ -16,7 +16,6 @@ html,
 body {
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
 }
 
 body {
@@ -32,9 +31,6 @@ body {
   justify-content: center;
 
   padding: 34px 16px 90px;
-
-  overflow-x: hidden;
-
   font-family: "Cormorant Garamond", serif;
 
   position: relative;

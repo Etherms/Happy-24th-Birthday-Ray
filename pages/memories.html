@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Ray!</title>
+  <link rel="stylesheet" href="../css/letter-page.css">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="icon" type="image/png" href="./Assets/Icons/favicon.png">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Gideon+Roman&family=Inspiration&family=Italianno&display=swap');
+
+    :root {
+      --red: #AD1919;
+      --white: #ffffff;
+      --soft: #fff5f5;
+      --soft-2: #ffe7e7;
+      --dark: #2b0b0b;
+      --muted: #6a3030;
+      --shadow: 0 18px 35px rgba(173,25,25,.18);
+      --radius-lg: 30px;
+      --radius-md: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Gideon Roman', Georgia, serif;
+      background: var(--white);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    section {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gideon-roman-regular {
+      font-family: 'Gideon Roman', Georgia, serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    .inspiration-regular {
+      font-family: 'Inspiration', cursive;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    .italianno-regular {
+      font-family: 'Italianno', cursive;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    .fancy-title,
+    .hero h1,
+    .intro h2,
+    .section-title h2,
+    .memory-card h3,
+    .quote-section h2,
+    .cinematic h2,
+    .ending h2,
+    .gift-box h2 {
+      font-family: 'Inspiration', cursive;
+      font-weight: 400;
+    }
+
+    .hero p,
+    .intro p,
+    .memory-card p,
+    .bubble,
+    .future-card p,
+    .gift-box p,
+    .cinematic p,
+    .ending p {
+      font-family: 'Gideon Roman', Georgia, serif;
+    }
+
+    .hero {
+      min-height: 100svh;
+      background:
+        linear-gradient(rgba(173,25,25,.58), rgba(43,11,11,.92)),
+        url("../Assets/img/Us/5.jpg") center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+      color: var(--white);
+      isolation: isolate;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 210px;
+      height: 210px;
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 50%;
+      z-index: -1;
+      animation: floatSoft 7s ease-in-out infinite;
+    }
+
+    .hero::before {
+      top: 12%;
+      left: -80px;
+    }
+
+    .hero::after {
+      right: -95px;
+      bottom: 12%;
+      animation-delay: -2.5s;
+    }
+
+    .hero-content {
+      max-width: 420px;
+      animation: fadeUp 1.2s ease both;
+    }
+
+    .eyebrow,
+    .hero small,
+    .section-title small,
+    .cinematic small {
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 11px;
+    }
+
+    .hero h1 {
+      font-size: clamp(56px, 20vw, 92px);
+      line-height: .85;
+      margin: 18px 0;
+      text-shadow: 0 12px 30px rgba(0,0,0,.25);
+    }
+
+    .hero p {
+      font-size: 17px;
+      line-height: 1.7;
+      opacity: .95;
+    }
+
+    .scroll-hint {
+      width: fit-content;
+      margin: 36px auto 0;
+      font-size: 12px;
+      letter-spacing: 2px;
+      padding: 10px 15px;
+      border: 1px solid rgba(255,255,255,.55);
+      border-radius: 999px;
+      animation: bounce 1.6s infinite;
+    }
+
+    .intro {
+      padding: 75px 22px;
+      background: var(--white);
+      text-align: center;
+    }
+
+    .intro h2 {
+      color: var(--red);
+      font-size: clamp(36px, 11vw, 58px);
+      line-height: 1;
+      margin-bottom: 14px;
+    }
+
+    .intro p {
+      max-width: 360px;
+      margin: auto;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    .timeline {
+      padding: 38px 14px 76px;
+      background:
+        radial-gradient(circle at top left, rgba(173,25,25,.13), transparent 35%),
+        var(--soft);
+    }
+
+    .timeline-inner {
+      max-width: 430px;
+      margin: 0 auto;
+    }
+
+    .memory-card {
+      position: relative;
+      background: rgba(255,255,255,.92);
+      border: 2px solid var(--red);
+      border-radius: var(--radius-lg);
+      padding: 14px;
+      margin-bottom: 34px;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      transform: translateY(46px) scale(.98);
+      transition: opacity .75s ease, transform .75s ease, box-shadow .35s ease;
+      will-change: transform;
+    }
+
+    .memory-card::before {
+      content: "♡";
+      position: absolute;
+      right: 18px;
+      top: 12px;
+      color: rgba(173,25,25,.18);
+      font-size: 34px;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .memory-card.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .memory-card:active,
+    .memory-card.is-touched {
+      transform: translateY(-4px) scale(1.015);
+      box-shadow: 0 24px 44px rgba(173,25,25,.25);
+    }
+
+    .memory-date {
+      display: inline-block;
+      background: var(--red);
+      color: var(--white);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    /* IMPORTANT: The frame controls the size. The image only fills it. */
+    .memory-image-frame {
+      position: relative;
+      width: 100%;
+      height: clamp(290px, 86vw, 390px);
+      border-radius: 24px;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(173,25,25,.12), rgba(255,255,255,.95)),
+        var(--soft-2);
+      border: 4px solid var(--white);
+      box-shadow: 0 10px 22px rgba(0,0,0,.12);
+    }
+
+    .memory-image-frame::after {
+      content: "Tap to open";
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      background: rgba(43,11,11,.72);
+      color: var(--white);
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: .3s ease;
+      pointer-events: none;
+    }
+
+    .memory-card.show .memory-image-frame::after {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: .55s;
+    }
+
+    .memory-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform .55s ease, object-position .55s ease, filter .55s ease;
+    }
+
+    .memory-img.phone-image {
+      object-fit: contain;
+      padding: 8px;
+    }
+
+    .memory-img.square-image {
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .memory-card.is-open .memory-img {
+      transform: scale(1.045);
+      filter: saturate(1.08) contrast(1.03);
+    }
+
+    .memory-card.is-open .memory-img.phone-image {
+      object-fit: cover;
+      padding: 0;
+    }
+
+    .memory-card h3 {
+      color: var(--red);
+      font-size: clamp(34px, 10vw, 48px);
+      margin: 18px 0 8px;
+      line-height: .95;
+    }
+
+    .memory-card p {
+      color: #5b2727;
+      font-size: 15.5px;
+      line-height: 1.75;
+    }
+
+    .memory-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .memory-tags span {
+      border: 1px solid var(--red);
+      color: var(--red);
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-size: 12px;
+      background: #fffafa;
+      transition: transform .25s ease, background .25s ease, color .25s ease;
+    }
+
+    .memory-tags span:active {
+      transform: scale(.94);
+      background: var(--red);
+      color: var(--white);
+    }
+
+    .quote-section {
+      min-height: 70svh;
+      background: var(--red);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 36px;
+    }
+
+    .quote-section h2 {
+      font-size: clamp(44px, 14vw, 68px);
+      line-height: 1.05;
+      max-width: 420px;
+    }
+
+    .chat-section {
+      padding: 70px 18px;
+      background: var(--white);
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .section-title small {
+      color: var(--red);
+    }
+
+    .section-title h2 {
+      color: var(--dark);
+      font-size: clamp(38px, 12vw, 58px);
+      line-height: .95;
+      margin-top: 8px;
+    }
+
+    .chat-box {
+      max-width: 390px;
+      margin: auto;
+      background: var(--soft);
+      border-radius: 28px;
+      padding: 18px;
+      border: 2px solid var(--red);
+      box-shadow: 0 14px 30px rgba(173,25,25,.13);
+    }
+
+    .bubble {
+      max-width: 82%;
+      padding: 12px 15px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      line-height: 1.5;
+      font-size: 14px;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: .55s ease;
+    }
+
+    .show .bubble {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .show .bubble:nth-child(2) { transition-delay: .12s; }
+    .show .bubble:nth-child(3) { transition-delay: .24s; }
+    .show .bubble:nth-child(4) { transition-delay: .36s; }
+
+    .bubble.left {
+      background: var(--white);
+      color: var(--dark);
+      border-bottom-left-radius: 4px;
+    }
+
+    .bubble.right {
+      background: var(--red);
+      color: var(--white);
+      margin-left: auto;
+      border-bottom-right-radius: 4px;
+    }
+
+    .collage-section {
+      padding: 80px 18px;
+      background: var(--soft);
+      text-align: center;
+    }
+
+    .collage {
+      position: relative;
+      height: 455px;
+      max-width: 390px;
+      margin: 40px auto 0;
+    }
+
+    .photo {
+      position: absolute;
+      background: var(--white);
+      padding: 8px 8px 34px;
+      width: clamp(148px, 43vw, 172px);
+      box-shadow: 0 14px 24px rgba(0,0,0,.18);
+      border: 2px solid var(--red);
+      transition: transform .35s ease, z-index .35s ease;
+      touch-action: manipulation;
+    }
+
+    .photo::after {
+      content: "♡";
+      position: absolute;
+      left: 50%;
+      bottom: 8px;
+      transform: translateX(-50%);
+      color: var(--red);
+      font-size: 18px;
+    }
+
+    .photo-frame {
+      height: 175px;
+      overflow: hidden;
+      background: var(--soft-2);
+    }
+
+    .photo img {
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .photo.phone .photo-frame img {
+      object-fit: contain;
+      padding: 5px;
+    }
+
+    .photo:hover,
+    .photo:active,
+    .photo.active {
+      z-index: 10;
+      transform: rotate(0deg) scale(1.08) !important;
+    }
+
+    .photo.one {
+      left: 6px;
+      top: 20px;
+      transform: rotate(-8deg);
+    }
+
+    .photo.two {
+      right: 8px;
+      top: 78px;
+      transform: rotate(7deg);
+    }
+
+    .photo.three {
+      left: 76px;
+      top: 245px;
+      transform: rotate(-2deg);
+    }
+
+    .cinematic {
+      min-height: 100svh;
+      background:
+        linear-gradient(to top, rgba(43,11,11,.95), rgba(173,25,25,.25)),
+        url("../Assets/img/Us/4.jpg") center/cover no-repeat;
+      display: flex;
+      align-items: flex-end;
+      padding: 28px;
+      color: var(--white);
+    }
+
+    .cinematic-content {
+      margin-bottom: 50px;
+      max-width: 360px;
+    }
+
+    .cinematic h2 {
+      font-size: clamp(48px, 15vw, 72px);
+      line-height: .9;
+      margin: 14px 0;
+    }
+
+    .cinematic p {
+      line-height: 1.7;
+      opacity: .95;
+    }
+
+    .audio-section {
+      padding: 80px 18px;
+      background: var(--white);
+      text-align: center;
+    }
+
+    .audio-card {
+      max-width: 360px;
+      margin: 30px auto 0;
+      background: var(--red);
+      color: var(--white);
+      border-radius: 30px;
+      padding: 28px 20px;
+      box-shadow: 0 18px 35px rgba(173,25,25,.28);
+    }
+
+    .audio-icon {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 3px solid var(--white);
+      display: grid;
+      place-items: center;
+      margin: 0 auto 18px;
+      font-size: 34px;
+      animation: pulsePlay 2s ease-in-out infinite;
+    }
+
+    .audio-card audio {
+      width: 100%;
+      margin-top: 18px;
+    }
+
+    .future-section {
+      padding: 75px 18px;
+      background: var(--soft);
+    }
+
+    .future-grid {
+      display: grid;
+      gap: 16px;
+      max-width: 390px;
+      margin: 30px auto 0;
+    }
+
+    .future-card {
+      background: var(--white);
+      border-left: 7px solid var(--red);
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 12px 25px rgba(173,25,25,.12);
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+
+    .future-card:active {
+      transform: translateX(6px) scale(1.01);
+      box-shadow: 0 18px 28px rgba(173,25,25,.2);
+    }
+
+    .future-card h3 {
+      color: var(--red);
+      margin-bottom: 6px;
+      font-size: 24px;
+    }
+
+    .future-card p {
+      color: #5b2727;
+      line-height: 1.6;
+    }
+
+    .ending {
+      min-height: 100svh;
+      background: var(--red);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 26px;
+    }
+
+    .ending h2 {
+      font-size: clamp(48px, 15vw, 82px);
+      line-height: .95;
+      margin-bottom: 22px;
+    }
+
+    .ending p {
+      line-height: 1.8;
+      max-width: 370px;
+      margin: auto;
+    }
+
+    .gift-section {
+      min-height: 100svh;
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 28px;
+    }
+
+    .gift-box {
+      max-width: 380px;
+      border: 3px solid var(--red);
+      border-radius: 34px;
+      padding: 36px 22px;
+      box-shadow: 0 20px 40px rgba(173,25,25,.18);
+      background: var(--soft);
+    }
+
+    .gift-emoji {
+      font-size: 82px;
+      margin-bottom: 20px;
+      animation: giftShake 1.8s infinite;
+    }
+
+    .gift-box h2 {
+      color: var(--red);
+      font-size: clamp(42px, 13vw, 62px);
+      line-height: .95;
+      margin-bottom: 12px;
+    }
+
+    .gift-box p {
+      color: #5b2727;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .gift-box button {
+      border: none;
+      background: var(--red);
+      color: var(--white);
+      padding: 15px 26px;
+      border-radius: 999px;
+      font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 12px 22px rgba(173,25,25,.24);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .gift-box button:active {
+      transform: scale(.94);
+      box-shadow: 0 7px 14px rgba(173,25,25,.24);
+    }
+
+    .gift-result {
+      display: none;
+      margin-top: 24px;
+      background: var(--white);
+      color: var(--red);
+      padding: 18px;
+      border-radius: 22px;
+      font-weight: bold;
+      border: 2px dashed var(--red);
+    }
+
+    .gift-result.show {
+      display: block;
+      animation: popIn .7s ease both;
+    }
+
+    .gift-result a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 14px;
+      background: var(--red);
+      color: var(--white);
+      text-decoration: none;
+      padding: 12px 18px;
+      border-radius: 999px;
+      box-shadow: 0 10px 18px rgba(173,25,25,.22);
+      transition: transform .25s ease;
+    }
+
+    .gift-result a:active {
+      transform: scale(.94);
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+      background: rgba(43,11,11,.88);
+      backdrop-filter: blur(8px);
+    }
+
+    .lightbox.show {
+      display: flex;
+      animation: lightboxFade .25s ease both;
+    }
+
+    .lightbox-content {
+      position: relative;
+      width: min(100%, 430px);
+      max-height: 88svh;
+      background: var(--white);
+      border: 3px solid var(--red);
+      border-radius: 28px;
+      padding: 12px;
+      box-shadow: 0 25px 60px rgba(0,0,0,.35);
+      animation: lightboxPop .3s ease both;
+    }
+
+    .lightbox-image-frame {
+      width: 100%;
+      max-height: 76svh;
+      border-radius: 20px;
+      overflow: hidden;
+      background: var(--soft-2);
+      display: grid;
+      place-items: center;
+    }
+
+    .lightbox img {
+      width: 100%;
+      max-height: 76svh;
+      object-fit: contain;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -14px;
+      right: -10px;
+      width: 42px;
+      height: 42px;
+      border: 2px solid var(--white);
+      border-radius: 50%;
+      background: var(--red);
+      color: var(--white);
+      font-size: 24px;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: 0 12px 22px rgba(0,0,0,.22);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+
+    .reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .back-btn{
+  margin-top: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  border-radius: 999px;
+  background: #fff;
+  color: #AD1919;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  transition: all .35s ease;
+  box-shadow: 0 10px 25px rgba(0,0,0,.18);
+  border: 2px solid transparent;
+}
+
+.back-btn:hover{
+  transform: translateY(-4px) scale(1.04);
+  background: transparent;
+  color: #fff;
+  border-color: #fff;
+}
+
+.back-btn:active{
+  transform: scale(.96);
+}
+
+    @media (min-width: 768px) {
+      .timeline-inner,
+      .future-grid,
+      .chat-box,
+      .collage {
+        max-width: 520px;
+      }
+
+      .memory-image-frame {
+        height: 430px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(35px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
+    }
+
+    @keyframes giftShake {
+      0%, 100% { transform: rotate(0); }
+      25% { transform: rotate(-5deg); }
+      75% { transform: rotate(5deg); }
+    }
+
+    @keyframes floatSoft {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(18px) scale(1.06); }
+    }
+
+    @keyframes pulsePlay {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,.25); }
+      50% { transform: scale(1.05); box-shadow: 0 0 0 12px rgba(255,255,255,0); }
+    }
+
+    @keyframes popIn {
+      0% { opacity: 0; transform: translateY(16px) scale(.92); }
+      70% { transform: translateY(0) scale(1.04); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes lightboxFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes lightboxPop {
+      from { opacity: 0; transform: translateY(16px) scale(.94); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="hero">
+    <div class="hero-content">
+      <small>Memory Timeline</small>
+      <h1 class="hero-title inspiration-regular">Our Story</h1>
+      <p>A collection of little moments that became my favorite memories with you.</p>
+      <div class="scroll-hint">SCROLL ↓</div>
+    </div>
+  </section>
+
+  <section class="intro reveal">
+    <h2 class="fancy-title inspiration-regular">Before anything else...</h2>
+    <p>
+      This page is made for you. Not because every memory is perfect,
+      but because every memory with you means something to me.
+    </p>
+  </section>
+
+  <section class="timeline">
+    <div class="timeline-inner">
+
+      <div class="memory-card">
+        <span class="memory-date">CHAPTER 01</span>
+        <div class="memory-image-frame">
+          <img class="memory-img square-image" src="../Assets/img/Us/6.jpg" alt="">
+        </div>
+        <h3 class="fancy-title inspiration-regular">The Beginning</h3>
+        <p>
+          I didn’t know this simple moment would become the start of something
+          I would keep close to my heart.
+        </p>
+        <div class="memory-tags">
+          <span>📍 First memory</span>
+          <span>💭 Nervous</span>
+          <span>🤍 Special</span>
+        </div>
+      </div>
+
+      <div class="memory-card">
+        <span class="memory-date">CHAPTER 02</span>
+        <div class="memory-image-frame">
+          <img class="memory-img phone-image" src="../Assets/img/Us/7.jpg" alt="">
+        </div>
+        <h3 class="fancy-title inspiration-regular">When We Got Closer</h3>
+        <p>
+          Somewhere between random talks, jokes, and late conversations,
+          you slowly became my comfort person.
+        </p>
+        <div class="memory-tags">
+          <span>🌙 Late talks</span>
+          <span>😂 Random jokes</span>
+          <span>❤️ Comfort</span>
+        </div>
+      </div>
+
+      <div class="memory-card">
+        <span class="memory-date">CHAPTER 03</span>
+        <div class="memory-image-frame">
+          <img class="memory-img phone-image" src="../Assets/img/Us/2.jpg" alt="">
+        </div>
+        <h3 class="fancy-title inspiration-regular">The Funny Moments</h3>
+        <p>
+          I love how we can be serious one second and completely stupid the next.
+          Those little laughs are some of my favorite sounds.
+        </p>
+        <div class="memory-tags">
+          <span>😂 Laughs</span>
+          <span>📸 Cute photos</span>
+          <span>😆 Chaos</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="quote-section reveal">
+    <h2 class="fancy-title inspiration-regular">
+      Sometimes the smallest moments become the biggest memories.
+    </h2>
+  </section>
+
+  <section class="collage-section reveal">
+    <div class="section-title">
+      <small>Little Pieces</small>
+      <h2 class="fancy-title inspiration-regular">Photos I Keep Looking At</h2>
+    </div>
+
+    <div class="collage">
+      <div class="photo one">
+        <div class="photo-frame">
+          <img src="../Assets/img/Us/1.jpg" alt="">
+        </div>
+      </div>
+      <div class="photo two phone">
+        <div class="photo-frame">
+          <img src="../Assets/img/Us/3.jpg" alt="">
+        </div>
+      </div>
+      <div class="photo three">
+        <div class="photo-frame">
+          <img src="../Assets/img/Us/9.jpg" alt="">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cinematic">
+    <div class="cinematic-content reveal">
+      <small>Favorite Chapter</small>
+      <h2 class="fancy-title inspiration-regular">You became home.</h2>
+      <p>
+        Not a place, not a thing, but a feeling.
+        Somehow, being with you makes everything softer.
+      </p>
+    </div>
+  </section>
+
+  <section class="audio-section reveal">
+    <div class="section-title">
+      <small>Listen</small>
+      <h2 class="fancy-title inspiration-regular">A Message For You</h2>
+    </div>
+
+    <div class="audio-card">
+      <div class="audio-icon">▶</div>
+      <h3>Voice Note</h3>
+      <p>Play this when you want to hear something made only for you.</p>
+
+      <audio controls>
+        <source src="../Assets/music/05-23-2026 21.56.m4a" type="audio/mpeg">
+      </audio>
+    </div>
+  </section>
+
+  <section class="future-section reveal">
+    <div class="section-title">
+      <small>Next Chapters</small>
+      <h2 class="fancy-title inspiration-regular">Things I Still Want With You</h2>
+    </div>
+
+    <div class="future-grid">
+      <div class="future-card">
+        <h3>More dates</h3>
+        <p>Simple days, good food, and your smile beside me.</p>
+      </div>
+
+      <div class="future-card">
+        <h3>More memories</h3>
+        <p>Photos, videos, jokes, and stories we’ll keep forever.</p>
+      </div>
+
+      <div class="future-card">
+        <h3>More quiet moments</h3>
+        <p>The kind where nothing needs to happen because you’re already enough.</p>
+      </div>
+
+      <div class="future-card">
+        <h3>More birthdays</h3>
+        <p>Hopefully, I get to make you feel loved every year.</p>
+      </div>
+    </div>
+  </section>
+
+<section class="ending">
+  <div class="reveal">
+    <h2 class="fancy-title inspiration-regular">
+      Thank you for existing.
+    </h2>
+
+    <p>
+      You are my favorite person, my favorite memory,
+      and hopefully, my favorite future too.
+    </p>
+
+    <a href="./gift-page.html" class="back-btn">
+      Click Me To Go Back ♡
+    </a>
+  </div>
+</section>
+
+  <div class="lightbox" id="photoLightbox" aria-hidden="true">
+    <div class="lightbox-content">
+      <button class="lightbox-close" type="button" aria-label="Close photo">×</button>
+      <div class="lightbox-image-frame">
+        <img id="lightboxImg" src="" alt="Selected memory photo">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const revealItems = document.querySelectorAll(".reveal, .memory-card");
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+        }
+      });
+    }, {
+      threshold: 0.18
+    });
+
+    revealItems.forEach(item => observer.observe(item));
+
+    const lightbox = document.getElementById("photoLightbox");
+    const lightboxImg = document.getElementById("lightboxImg");
+    const lightboxClose = document.querySelector(".lightbox-close");
+
+    function openLightbox(src, alt = "Selected memory photo") {
+      lightboxImg.src = src;
+      lightboxImg.alt = alt;
+      lightbox.classList.add("show");
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove("show");
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      setTimeout(() => {
+        if (!lightbox.classList.contains("show")) lightboxImg.src = "";
+      }, 250);
+    }
+
+    document.querySelectorAll(".memory-image-frame img, .photo-frame img").forEach(img => {
+      img.style.cursor = "zoom-in";
+      img.addEventListener("click", event => {
+        event.stopPropagation();
+        openLightbox(img.getAttribute("src"), img.getAttribute("alt") || "Memory photo");
+      });
+    });
+
+    lightboxClose.addEventListener("click", closeLightbox);
+
+    lightbox.addEventListener("click", event => {
+      if (event.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && lightbox.classList.contains("show")) {
+        closeLightbox();
+      }
+    });
+
+    document.querySelectorAll(".memory-card").forEach(card => {
+      card.addEventListener("touchstart", () => {
+        card.classList.add("is-touched");
+      }, { passive: true });
+
+      card.addEventListener("touchend", () => {
+        setTimeout(() => card.classList.remove("is-touched"), 180);
+      });
+    });
+
+    document.querySelectorAll(".photo").forEach(photo => {
+      photo.addEventListener("click", () => {
+        document.querySelectorAll(".photo").forEach(item => item.classList.remove("active"));
+        photo.classList.add("active");
+      });
+    });
+
+  
+  </script>
+
+</body>
+</html>

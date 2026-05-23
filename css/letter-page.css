@@ -5,7 +5,6 @@
 body {
     margin: 0;
     min-height: 100dvh;
-    overflow: hidden;
     position: relative;
 }
 
@@ -15,7 +14,6 @@ body {
     position: fixed;
     inset: 0;
     z-index: -3;
-    overflow: hidden;
 }
 
 .background-image img {
